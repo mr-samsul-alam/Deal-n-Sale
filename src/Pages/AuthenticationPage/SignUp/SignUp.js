@@ -11,14 +11,14 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles'; 
 import { NavLink, useLocation } from 'react-router-dom';
 import { Alert, CircularProgress } from '@mui/material'; 
-import useFireBase from '../../../Hooks/UseFireBase';
+import UseFireBase from '../../../Hooks/UseFireBase';
 import NavigationBar from '../../Shared/NavigationBar/NavigationBar';
 
 const theme = createTheme();
 
 const SignUp = () => {
     const location = useLocation();
-    const { user, registerUser, isLoading, authError } = useFireBase();
+    const { user, registerUser, isLoading, authError } = UseFireBase();
     const handleSubmit = (event) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);

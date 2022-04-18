@@ -8,6 +8,8 @@ import HomePage from './Pages/HomePage/HomePage/HomePage';
 import Footer from './Pages/Shared/Footer/Footer';
 import SignIn from './Pages/AuthenticationPage/SignIn/Signin';
 import SignUp from './Pages/AuthenticationPage/SignUp/SignUp';
+import ExplorePage from './Pages/ExplorePage/ExplorePage/ExplorePage';
+import SingleProductDetails from './Pages/ExplorePage/SingleProductDetails/SingleProductDetails';
 
 
 function App() {
@@ -16,6 +18,10 @@ function App() {
       <Router>
         <Routes>
           <Route path="/home" element={<HomePage />}>
+          </Route>
+          <Route path="/explore" element={<ExplorePage />}>
+          </Route>
+          <Route path="/product/:id" element={<SingleProductDetails />}>
           </Route>
           <Route path="/signIn" element={<SignIn />}>
           </Route>

@@ -7,7 +7,7 @@ import InitializeAuthentication from "../FireBase/FireBaseInit";
 // initialize firebase app
 InitializeAuthentication()
 
-const useFireBase = () => {
+const UseFireBase = () => {
     const [user, setUser] = useState({});
     const [isLoading, setIsLoading] = useState(true);
     const [authError, setAuthError] = useState('');
@@ -128,4 +128,4 @@ const useFireBase = () => {
     }
 };
 
-export default useFireBase;
+export default UseFireBase;

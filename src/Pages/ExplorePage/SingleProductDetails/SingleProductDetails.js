@@ -6,21 +6,21 @@ import LinearProgress from '@mui/material/LinearProgress';
 import UseFireBase from '../../../Hooks/UseFireBase';
 import NavigationBar from '../../Shared/NavigationBar/NavigationBar';
 import { addToDb } from '../../../Utilities/SavedToLocalStorage';
+import { Box } from '@mui/system';
 const SingleProductDetails = () => {
     const [quantity, setQuantity] = useState(1);
-
     const { user } = UseFireBase()
-
     const { id } = useParams()
-    const { products } = UseProductsData()
-
+    //getting product data from useContext
+    const { products, progress, buffer } = UseProductsData()
+    //filtering product by getting product code  
     const product = products.filter(product => (product?.id_by_subCategory === id));
     const singleProduct = product[0]
+
+    // initial price coming from db
     const [newPrice, setPrice] = useState(singleProduct?.price);
-
-
-
-
+    const [livePicture, setPicture] = useState(singleProduct?.mainPicture);
+    //updating quantity and price and also showing live price on site according to quantity 
     const upDate = (prop, quantity) => {
         if (quantity >= 1) {
             if (prop === "plus") {
@@ -49,13 +49,7 @@ const SingleProductDetails = () => {
             }
         }
     }
-    // const liveNetPrice = () => {
-    //     const price = singleProduct?.price;
-    //     let newPrice = price * quantity;
-    //     console.log(newPrice);
-    //     setPrice(newPrice)
-    // }
-    console.log(newPrice);
+
     // making object for sending db
     const CartDetails = {
         name: `${user?.displayName}`,
@@ -71,19 +65,40 @@ const SingleProductDetails = () => {
         console.log(singleProduct?.id_by_subCategory);
         addToDb(singleProduct?.id_by_subCategory, quantity)
     }
+
+
     //Sending Data To Cart Details
     const handleAddToCart = () => {
         // liveNetPrice()
         console.log(singleProduct?.id_by_subCategory);
     }
+    const handleClick = (link) => {
+        setPicture(link)
+    }
     return (
         <div>
             <NavigationBar></NavigationBar>
+            <LinearProgress variant="buffer" value={progress} valueBuffer={buffer} />
             <Container>
                 {
                     singleProduct ? (<Grid container spacing={2} style={{ margin: '2px solid red' }}>
                         <Grid item xs={12} md={6}>
-                            <img src={singleProduct?.mainPicture} width="200px" alt="" />
+                            <Box style={{ display: 'flex', justifyContent: 'center' }}>
+                                {
+                                    livePicture ? <img src={livePicture} width="200px" alt="" /> : <img src={singleProduct?.mainPicture} width="200px" alt="" />
+                                }
+                            </Box>
+
+                            <Box style={{ display: 'flex', justifyContent: 'center' }}>
+                                <Box onClick={() => handleClick(singleProduct?.picture2)}>
+                                    <img src={singleProduct?.picture2} width="100px" alt="" />
+                                </Box>
+                                <Box onClick={() => handleClick(singleProduct?.picture3)}>
+                                    <img src={singleProduct?.picture3} width="100px" alt="" /></Box>
+                                <Box onClick={() => handleClick(singleProduct?.picture4)}>
+                                    <img src={singleProduct?.picture4} width="100px" alt="" />
+                                </Box>
+                            </Box>
                         </Grid>
                         <Grid item xs={12} md={6}>
                             <Typography style={{ fontWeight: 'bolder', fontSize: '2rem' }}>{singleProduct?.productName}</Typography>
@@ -106,6 +121,8 @@ const SingleProductDetails = () => {
                                 <Button>{quantity}</Button>
                                 <Button onClick={() => upDate("plus", quantity)}>+</Button>
                             </ButtonGroup>
+                            <Button onClick={handleWish}>Add to Wish</Button>
+                            <Button onClick={handleAddToCart}>Add to Cart</Button>
                         </Grid>
                     </Grid>) : (<Grid container spacing={2} style={{ margin: '2px solid red' }}>
                         <Grid item xs={12} md={6}>
@@ -132,9 +149,6 @@ const SingleProductDetails = () => {
                         </Grid>
                     </Grid>)
                 }
-
-                <Button onClick={handleWish}>Add to Wish</Button>
-                <Button onClick={handleAddToCart}>Add to Cart</Button>
             </Container>
 
         </div>

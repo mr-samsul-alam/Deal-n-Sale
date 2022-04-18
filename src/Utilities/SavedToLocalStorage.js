@@ -1,27 +1,27 @@
 // use local storage as your db for now
 const addToDb = (pdCode,count) => {
     const exists = getDb();
-    let shopping_cart = {};
+    let shopping_wishlist = {};
     if (!exists) {
-        shopping_cart[pdCode] = count;
+        shopping_wishlist[pdCode] = count;
     }
     else {
-        shopping_cart = JSON.parse(exists);
-        if (shopping_cart[pdCode]) {
+        shopping_wishlist = JSON.parse(exists);
+        if (shopping_wishlist[pdCode]) {
             const newCount =  count;
-            shopping_cart[pdCode] = newCount;
+            shopping_wishlist[pdCode] = newCount;
         }
         else {
-            shopping_cart[pdCode] = 1;
+            shopping_wishlist[pdCode] = 1;
         }
     }
-    updateDb(shopping_cart);
+    updateDb(shopping_wishlist);
 }
 
-const getDb = () => localStorage.getItem('shopping_cart');
+const getDb = () => localStorage.getItem('shopping_wishlist');
 
 const updateDb = cart => {
-    localStorage.setItem('shopping_cart', JSON.stringify(cart));
+    localStorage.setItem('shopping_wishlist', JSON.stringify(cart));
 }
 
 const removeFromDb = id => {
@@ -30,9 +30,9 @@ const removeFromDb = id => {
 
     }
     else {
-        const shopping_cart = JSON.parse(exists);
-        delete shopping_cart[id];
-        updateDb(shopping_cart);
+        const shopping_wishlist = JSON.parse(exists);
+        delete shopping_wishlist[id];
+        updateDb(shopping_wishlist);
     }
 }
 
@@ -42,7 +42,7 @@ const getStoredCart = () => {
 }
 
 const clearTheCart = () => {
-    localStorage.removeItem('shopping_cart');
+    localStorage.removeItem('shopping_wishlist');
 }
 
 export { addToDb, removeFromDb, clearTheCart, getStoredCart }

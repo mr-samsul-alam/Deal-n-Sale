@@ -8,6 +8,7 @@ import NavigationBar from '../../Shared/NavigationBar/NavigationBar';
 import { addToDb } from '../../../Utilities/SavedToLocalStorage';
 const SingleProductDetails = () => {
     const [quantity, setQuantity] = useState(1);
+
     const { user } = UseFireBase()
 
     const { id } = useParams()
@@ -15,7 +16,47 @@ const SingleProductDetails = () => {
 
     const product = products.filter(product => (product?.id_by_subCategory === id));
     const singleProduct = product[0]
+    const [newPrice, setPrice] = useState(singleProduct?.price);
 
+
+
+
+    const upDate = (prop, quantity) => {
+        if (quantity >= 1) {
+            if (prop === "plus") {
+                setQuantity(quantity + 1);
+                const price = singleProduct?.price;
+                let newPrice = price * (quantity + 1);
+                console.log(newPrice);
+                setPrice(newPrice)
+            }
+            else {
+                setQuantity(quantity - 1)
+                const price = singleProduct?.price;
+                let newPrice = price * (quantity - 1);
+                console.log(newPrice);
+                setPrice(newPrice)
+            }
+
+        }
+        else if (quantity >= 0) {
+            if (prop === "plus") {
+                setQuantity(quantity + 1);
+                const price = singleProduct?.price;
+                let newPrice = price * quantity;
+                console.log(newPrice);
+                setPrice(newPrice)
+            }
+        }
+    }
+    // const liveNetPrice = () => {
+    //     const price = singleProduct?.price;
+    //     let newPrice = price * quantity;
+    //     console.log(newPrice);
+    //     setPrice(newPrice)
+    // }
+    console.log(newPrice);
+    // making object for sending db
     const CartDetails = {
         name: `${user?.displayName}`,
         email: `${user?.email}`,
@@ -25,27 +66,15 @@ const SingleProductDetails = () => {
         perUnit: `${singleProduct?.price}`,
         status: 'pending'
     }
-
-    const upDate = (prop, quantity) => {
-        if (quantity >= 1) {
-            if (prop === "plus") {
-                setQuantity(quantity + 1);
-            }
-            else {
-                setQuantity(quantity - 1)
-            }
-
-        }
-        else if (quantity >= 0) {
-            if (prop === "plus") {
-                setQuantity(quantity + 1);
-            }
-        }
-    }
     //Sending data to local storage
     const handleWish = () => {
         console.log(singleProduct?.id_by_subCategory);
         addToDb(singleProduct?.id_by_subCategory, quantity)
+    }
+    //Sending Data To Cart Details
+    const handleAddToCart = () => {
+        // liveNetPrice()
+        console.log(singleProduct?.id_by_subCategory);
     }
     return (
         <div>
@@ -62,7 +91,10 @@ const SingleProductDetails = () => {
                                 <Rating name="half-rating-read" style={{ color: '#D8C3A5' }} defaultValue={4} precision={0.5} readOnly />
                             </Typography>
                             <Typography>
-                                {parseFloat(singleProduct?.price)}
+                                {
+                                    newPrice ? <Typography>{newPrice}</Typography> : <Typography>{singleProduct?.price}</Typography>
+                                }
+
                             </Typography>
 
                             <Typography  >
@@ -102,6 +134,7 @@ const SingleProductDetails = () => {
                 }
 
                 <Button onClick={handleWish}>Add to Wish</Button>
+                <Button onClick={handleAddToCart}>Add to Cart</Button>
             </Container>
 
         </div>

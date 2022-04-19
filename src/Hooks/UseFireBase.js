@@ -27,7 +27,7 @@ const UseFireBase = () => {
                 setAuthError('');
                 const user = result.user
                 setUser(user);
-                // saveUser(user.email, user.displayName, 'PUT')
+                saveUser(user?.email, user?.displayName, user?.photoURL, 'PUT')
             }).catch((error) => {
                 setAuthError(error.message);
             })
@@ -43,7 +43,7 @@ const UseFireBase = () => {
                 const newUser = { email, displayName: name }
                 setUser(newUser);
                 //save user to the database
-                // saveUser(email, name, 'POST');
+                saveUser(email, name, undefined, 'POST');
                 //send name to firebase after creation
                 updateProfile(auth.currentUser, {
                     displayName: name
@@ -91,17 +91,17 @@ const UseFireBase = () => {
                 setAuthError(error);
             }).finally(() => setIsLoading(false));
     }
-    // const saveUser = (email, displayName, method) => {
-    //     const user = { email, displayName };
-    //     fetch('https://mighty-woodland-10467.herokuapp.com/users', {
-    //         method: method,
-    //         headers: {
-    //             'content-type': 'application/json'
-    //         },
-    //         body: JSON.stringify(user)
-    //     })
-    //         .then()
-    // }
+    const saveUser = (email, displayName, photoURL, method) => {
+        const user = { email, displayName, photoURL };
+        fetch('http://localhost:5000/users', {
+            method: method,
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(user)
+        })
+            .then()
+    }
 
     // observer user state
     useEffect(() => {

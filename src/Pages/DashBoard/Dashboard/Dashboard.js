@@ -18,31 +18,53 @@ import PaymentOutlinedIcon from '@mui/icons-material/PaymentOutlined';
 import UnarchiveOutlinedIcon from '@mui/icons-material/UnarchiveOutlined';
 import AlignHorizontalRightOutlinedIcon from '@mui/icons-material/AlignHorizontalRightOutlined';
 import NotificationsActiveOutlinedIcon from '@mui/icons-material/NotificationsActiveOutlined';
+import LogoutIcon from '@mui/icons-material/Logout';
+import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
 import {
     Outlet,
-    Link,
-    NavLink
+    NavLink,
+    useNavigate
 } from "react-router-dom";
-import { Badge, Button, ButtonGroup } from '@mui/material';
+import { Avatar, Badge, Button, ButtonGroup, Menu, MenuItem } from '@mui/material';
 import UseFireBase from '../../../Hooks/UseFireBase';
 
 const drawerWidth = 200;
 
 function Dashboard(props) {
+    let navigate = useNavigate();
     const { window } = props;
     const [mobileOpen, setMobileOpen] = React.useState(false);
 
-    const { admin, user } = UseFireBase();
-    console.log(user?.photoUrl)
+    const { admin, user, logout } = UseFireBase();
+
     const handleDrawerToggle = () => {
         setMobileOpen(!mobileOpen);
     };
-    const userIconClicked = () => {
-        console.log('photo clicked')
+
+    //jbjb
+    const [anchorEl, setAnchorEl] = React.useState(null);
+    const open = Boolean(anchorEl);
+
+    const handleClick = (event) => {
+        console.log('user icon clicked');
+        setAnchorEl(event.currentTarget);
+    };
+    const handleClose = () => {
+        setAnchorEl(null);
+    };
+
+
+    //hvbhgyhbj
+    const goToMyAccount = () => {
+        navigate('/dashboard/myAccount')
     }
     const notifitionCLick = () => {
         console.log('notification clicked')
     }
+    const handleLogOut = () => {
+        logout()
+    }
+
 
     const drawer = (
         <div>
@@ -52,10 +74,16 @@ function Dashboard(props) {
             </Typography>
 
             <Box style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', padding: '10px', margin: '10px', borderRadius: '25px', backgroundColor: '#DFDFDF' }}>
-                <img src={user?.photoURL} alt="" style={{ borderRadius: '50%', width: '25%' }} />
-                <Typography>
+                <Box>
+                    {
+                        user.photoURL ? (<img src={user.photoURL} style={{ borderRadius: "50%", width: "50%" }} alt="User" />)
+                            :
+                            (<Avatar style={{ color: 'black' }} {...stringAvatar(user?.displayName)} />)
+                    }
+                </Box>
+                <Box>
                     {user?.displayName}
-                </Typography>
+                </Box>
             </Box>
             <ButtonGroup variant="contained" aria-label="outlined primary button group" style={{ display: 'flex', flexDirection: 'column', }}>
 
@@ -101,6 +129,11 @@ function Dashboard(props) {
                     to="/dashboard/inbox">
                     <Button variant="text"> <UnarchiveOutlinedIcon style={{ margin: '15px' }} />Inbox</Button>
                 </NavLink>
+                <NavLink
+                    style={{ textDecoration: 'none', display: "block" }}
+                    to="/dashboard/myAccount">
+                    <Button variant="text"  > <AccountCircleOutlinedIcon style={{ margin: '15px' }} />MY Account</Button>
+                </NavLink>
                 {admin && <Box>
                     <NavLink
                         style={{ textDecoration: 'none', display: "block" }}
@@ -113,12 +146,17 @@ function Dashboard(props) {
                         <Button variant="text"  > <ArrowLeftOutlinedIcon style={{ margin: '15px' }} />Add Products</Button>
                     </NavLink>
                 </Box>}
+                <Button variant="text" onClick={handleLogOut} > <LogoutIcon style={{ margin: '15px' }} />Sign Out</Button>
             </ButtonGroup>
         </div>
     );
 
     const container = window !== undefined ? () => window().document.body : undefined;
-
+    function stringAvatar(name) {
+        return {
+            children: `${name?.split(' ')[0][0]}${name?.split(' ')[1][0]}`,
+        };
+    }
     return (
         <Box sx={{ display: 'flex' }}>
             <CssBaseline />
@@ -144,16 +182,32 @@ function Dashboard(props) {
                     <Typography>
                         Welcome Back
                     </Typography>
-                    <Box style={{ padding: '10px', margin: '10px', borderRadius: '25px', backgroundColor: '#DFDFDF', width: '150px', height: '70px' }}>
+                    <Box style={{ padding: '1px', margin: '10px', borderRadius: '25px', backgroundColor: '#DFDFDF', width: '150px', height: '70x' }}>
                         <Box style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', }}>
                             <Button>
                                 <Badge badgeContent={4} color="primary"  >
                                     <NotificationsActiveOutlinedIcon style={{ color: 'black' }} onClick={notifitionCLick} />
                                 </Badge>
                             </Button>
-                            <Button>
-                                <img onClick={userIconClicked} src={user?.photoURL} alt="" style={{ borderRadius: '50%', width: '100%' }} />
+                            <Button onClick={handleClick}>
+                                {
+                                    user.photoURL ? (<img src={user.photoURL} style={{ borderRadius: "50%", width: "75%" }} alt="User" />)
+                                        :
+                                        (<Avatar style={{ color: 'black' }} {...stringAvatar(user?.displayName)} />)
+                                }
                             </Button>
+                            <Menu
+                                id="basic-menu"
+                                anchorEl={anchorEl}
+                                open={open}
+                                onClose={handleClose}
+                                MenuListProps={{
+                                    'aria-labelledby': 'basic-button',
+                                }}
+                            >
+                                <MenuItem onClick={goToMyAccount} > <AccountCircleOutlinedIcon style={{ margin: '5px' }} />My Account</MenuItem>
+                                <MenuItem onClick={handleLogOut}><LogoutIcon style={{ margin: '8px' }} /> Logout</MenuItem>
+                            </Menu>
                         </Box>
 
                     </Box>

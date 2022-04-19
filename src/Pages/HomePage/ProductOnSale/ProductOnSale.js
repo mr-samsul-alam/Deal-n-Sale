@@ -11,11 +11,11 @@ const ProductOnSale = () => {
         <Container style={{ marginTop: '70px' }}>
             <Typography variant="div" style={{ textAlign: 'center', }}>
                 <Typography >
-                    360° COLLECTION
+                    Today's Deal
                 </Typography>
                 <hr style={{ width: "50px" }} />
                 <Typography variant='h3' style={{ fontWeight: "bolder", marginBottom: '70px' }}>
-                    <span style={{ color: '#D8C3A5' }}>FEATURED</span> PRODUCTS
+                    <span style={{ color: '#FE9C00' }}> PRODUCTS</span> <span style={{ color: '#283442' }} >ON SALE </span>
                 </Typography>
             </Typography>
 

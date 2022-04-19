@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { ButtonBase, Grid, Paper, Rating } from '@mui/material';
-import Card from '@mui/material/Card'; 
+import { ButtonBase, Grid, Paper, Rating, Skeleton } from '@mui/material';
+import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
-import Typography from '@mui/material/Typography';  
+import Typography from '@mui/material/Typography';
 import { useNavigate } from 'react-router-dom';
 
 const cardOnHover = ({ hover }) => ({
@@ -17,48 +17,69 @@ const cardOnHover = ({ hover }) => ({
     borderLeftColor: hover ? '#D8C3A5' : 'white',
 })
 const ProductsOnSaleCard = (props) => {
-    const navigate = useNavigate();
-    // const { _id, rating } = props.product
-    const { _id, id_by_subCategory,  mainPicture } = props.product || [] 
+    const navigate = useNavigate(); 
+    const { _id, id_by_subCategory, productName, mainPicture,rating,price } = props.product || []
     const [hover, setHover] = useState(false)
-
+    // const id_by_subCategory = false
     const goToDetails = (id) => {
         navigate(`/product/${id_by_subCategory}`)
     }
     return (
         <Grid item xs={12} md={4} style={{ paddingTop: "30px", }}   >
             {/* <Box sx={{ mx: '2px', transform: 'scale(0.8)' }}> */}
-            <ButtonBase onClick={() => goToDetails(_id)} >
-                {/* elevation={24} variant='elevation' */}
-                <Card style={cardOnHover({ hover })}
-                    onPointerOver={() => setHover(true)}
-                    onPointerOut={() => setHover(false)}  >
+            {
+                id_by_subCategory ? (<ButtonBase onClick={() => goToDetails(_id)} >
+                    {/* elevation={24} variant='elevation' */}
+                    <Card style={cardOnHover({ hover })}
+                        onPointerOver={() => setHover(true)}
+                        onPointerOut={() => setHover(false)}  >
 
 
-                    <CardMedia
-                        component="img"
-                        height="100%"
-                        image={mainPicture}
-                        alt="green iguana"
-                    />
-                    <CardContent>
-                        <Typography sx={{ textAlign: 'center' }} component="div">
-                            {/* {name} */}
-                        </Typography>
-
-                        <Typography style={{ display: 'flex', justifyContent: "space-between", marginTop: "20px" }} component="div">
-                            <Typography  >
-                                {/* <Rating name="half-rating-read" style={{ color: '#D8C3A5' }} defaultValue={parseFloat(rating)} precision={0.5} readOnly /> */}
+                        <CardMedia
+                            component="img"
+                            height="100%"
+                            image={mainPicture}
+                            alt="green iguana"
+                        />
+                        <CardContent>
+                            <Typography sx={{ textAlign: 'center' }} component="div">
+                                {productName}
                             </Typography>
-                            <Typography style={{ fontSize: "1.5rem" }} >
-                                {/* <b>${price}</b> */}
+
+                            <Typography style={{ display: 'flex', justifyContent: "space-between", marginTop: "20px" }} component="div">
+                                <Typography  >
+                                    <Rating name="half-rating-read" style={{ color: '#D8C3A5' }} defaultValue={parseFloat(rating)} precision={0.5} readOnly />
+                                </Typography>
+                                <Typography style={{ fontSize: "1.5rem" }} >
+                                    <b>${price}</b>
+                                </Typography>
                             </Typography>
-                        </Typography>
 
-                    </CardContent>
-                </Card>
+                        </CardContent>
+                    </Card>
 
-            </ButtonBase >
+                </ButtonBase >) : <ButtonBase onClick={() => goToDetails(_id)} >
+                    {/* elevation={24} variant='elevation' */}
+                    <Card style={{ padding: '20px' }}>
+                        <Skeleton variant="rectangular" height="360px" width="320px" />
+                        <CardContent>
+                            <Typography sx={{ textAlign: 'center' }} component="div">
+                                <Skeleton variant="text" />
+                            </Typography>
+
+                            <Typography component="div">
+                                <Typography  >
+                                    <Skeleton variant="text" />
+                                </Typography>
+                                <Typography style={{ fontSize: "1.5rem" }} >
+                                    <Skeleton variant="text" />
+                                </Typography>
+                            </Typography>
+                        </CardContent>
+                    </Card>
+
+                </ButtonBase >
+            }
             {/* </Box> */}
 
         </Grid >

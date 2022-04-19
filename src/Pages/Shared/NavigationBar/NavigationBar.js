@@ -14,8 +14,9 @@ import UseFireBase from '../../../Hooks/UseFireBase';
 import { Avatar, InputBase } from '@mui/material';
 import { styled, alpha } from '@mui/material/styles';
 import SearchIcon from '@mui/icons-material/Search';
-import Paper from '@mui/material/Paper'; 
- 
+import Paper from '@mui/material/Paper';
+import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
+
 const NavigationBar = () => {
   const { user, logout } = UseFireBase()
   let navigate = useNavigate();
@@ -156,7 +157,7 @@ const NavigationBar = () => {
                     onClick={handleClick}
                   >
                     {
-                      user.photoURL ? (<img src={user.photoURL} style={{ borderRadius: "50%", width: "50%" }} alt="" />)
+                      user.photoURL ? (<img src={user.photoURL} style={{ borderRadius: "50%", width: "50%" }} alt="User" />)
                         :
                         (<Avatar {...stringAvatar(user?.displayName)} />)
                     }

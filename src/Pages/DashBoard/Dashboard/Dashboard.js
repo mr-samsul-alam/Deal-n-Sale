@@ -16,6 +16,8 @@ import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlin
 import ShoppingBagOutlinedIcon from '@mui/icons-material/ShoppingBagOutlined';
 import PaymentOutlinedIcon from '@mui/icons-material/PaymentOutlined';
 import UnarchiveOutlinedIcon from '@mui/icons-material/UnarchiveOutlined';
+import AlignHorizontalRightOutlinedIcon from '@mui/icons-material/AlignHorizontalRightOutlined';
+import NotificationsActiveOutlinedIcon from '@mui/icons-material/NotificationsActiveOutlined';
 import {
     Outlet,
     Link,
@@ -31,9 +33,16 @@ function Dashboard(props) {
     const [mobileOpen, setMobileOpen] = React.useState(false);
 
     const { admin, user } = UseFireBase();
+    console.log(user?.photoUrl)
     const handleDrawerToggle = () => {
         setMobileOpen(!mobileOpen);
     };
+    const userIconClicked = () => {
+        console.log('photo clicked')
+    }
+    const notifitionCLick = () => {
+        console.log('notification clicked')
+    }
 
     const drawer = (
         <div>
@@ -93,8 +102,16 @@ function Dashboard(props) {
                     <Button variant="text"> <UnarchiveOutlinedIcon style={{ margin: '15px' }} />Inbox</Button>
                 </NavLink>
                 {admin && <Box>
-                    <Link to={`/dashboard/makeAdmin`}><Button color="inherit">Make Admin</Button></Link>
-                    <Link to={`/dashboard/addProducts`}><Button color="inherit">Add Products</Button></Link>
+                    <NavLink
+                        style={{ textDecoration: 'none', display: "block" }}
+                        to="/dashboard/makeAdmin">
+                        <Button variant="text"  > <ArrowLeftOutlinedIcon style={{ margin: '15px' }} /> Make Admin</Button>
+                    </NavLink>
+                    <NavLink
+                        style={{ textDecoration: 'none', display: "block" }}
+                        to="/dashboard/addProducts">
+                        <Button variant="text"  > <ArrowLeftOutlinedIcon style={{ margin: '15px' }} />Add Products</Button>
+                    </NavLink>
                 </Box>}
             </ButtonGroup>
         </div>
@@ -112,7 +129,7 @@ function Dashboard(props) {
                     ml: { sm: `${drawerWidth}px` },
                 }}
             >
-                <Toolbar>
+                <Toolbar style={{ display: 'flex', justifyContent: 'space-between' }}>
                     <IconButton
                         color="inherit"
                         aria-label="open drawer"
@@ -120,12 +137,28 @@ function Dashboard(props) {
                         onClick={handleDrawerToggle}
                         sx={{ mr: 2, display: { sm: 'none' } }}
                     >
-                        <MenuIcon />
+                        <AlignHorizontalRightOutlinedIcon />
+
                     </IconButton>
-                    <Typography variant="h6" noWrap component="div">
-                        Dashboard
+
+                    <Typography>
+                        Welcome Back
                     </Typography>
+                    <Box style={{ padding: '10px', margin: '10px', borderRadius: '25px', backgroundColor: '#DFDFDF', width: '150px', height: '70px' }}>
+                        <Box style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', }}>
+                            <Button>
+                                <Badge badgeContent={4} color="primary"  >
+                                    <NotificationsActiveOutlinedIcon style={{ color: 'black' }} onClick={notifitionCLick} />
+                                </Badge>
+                            </Button>
+                            <Button>
+                                <img onClick={userIconClicked} src={user?.photoURL} alt="" style={{ borderRadius: '50%', width: '100%' }} />
+                            </Button>
+                        </Box>
+
+                    </Box>
                 </Toolbar>
+
             </AppBar>
             <Box
                 component="nav"

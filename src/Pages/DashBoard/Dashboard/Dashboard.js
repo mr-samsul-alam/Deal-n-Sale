@@ -9,12 +9,19 @@ import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
+import DashboardIcon from '@mui/icons-material/Dashboard';
+import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
+import ArrowLeftOutlinedIcon from '@mui/icons-material/ArrowLeftOutlined';
+import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
+import ShoppingBagOutlinedIcon from '@mui/icons-material/ShoppingBagOutlined';
+import PaymentOutlinedIcon from '@mui/icons-material/PaymentOutlined';
+import UnarchiveOutlinedIcon from '@mui/icons-material/UnarchiveOutlined';
 import {
     Outlet,
     Link,
     NavLink
 } from "react-router-dom";
-import { Button } from '@mui/material';
+import { Badge, Button, ButtonGroup } from '@mui/material';
 import UseFireBase from '../../../Hooks/UseFireBase';
 
 const drawerWidth = 200;
@@ -41,47 +48,55 @@ function Dashboard(props) {
                     {user?.displayName}
                 </Typography>
             </Box>
-            <NavLink
-                style={{ textDecoration: 'none', display: "block" }}
-                to="/home">
-                <Button color="inherit">Home</Button>
-            </NavLink>
-            <NavLink
-                style={{ textDecoration: 'none', display: "block" }}
-                to="/dashboard">
-                <Button color="inherit">Dashboard</Button>
-            </NavLink>
+            <ButtonGroup variant="contained" aria-label="outlined primary button group" style={{ display: 'flex', flexDirection: 'column', }}>
 
-            <NavLink
-                style={{ textDecoration: 'none', display: "block" }}
-                to="/dashboard/myCarts">
-                <Button color="inherit">My Cart</Button>
-            </NavLink>
+                <NavLink
+                    style={{ textDecoration: 'none', display: "block" }}
+                    to="/home">
+                    <Button variant="text"  > <ArrowLeftOutlinedIcon style={{ margin: '15px' }} /> Home</Button>
+                </NavLink>
+                <NavLink
+                    style={{ textDecoration: 'none', display: "block" }}
+                    to="/dashboard">
+                    <Button variant="text"> <DashboardIcon style={{ margin: '15px' }} /> Dashboard</Button>
+                </NavLink>
 
-            <NavLink
-                style={{ textDecoration: 'none', display: "block" }}
-                to="/dashboard/myWishlists">
-                <Button color="inherit">My WishList</Button>
-            </NavLink>
-            <NavLink
-                style={{ textDecoration: 'none', display: "block" }}
-                to="/dashboard/myOrders">
-                <Button color="inherit">My Order</Button>
-            </NavLink>  
-            <NavLink
-                style={{ textDecoration: 'none', display: "block" }}
-                to="/dashboard/myPayments">
-                <Button color="inherit">My Payments</Button>
-            </NavLink>  
-            <NavLink
-                style={{ textDecoration: 'none', display: "block" }}
-                to="/dashboard/inbox">
-                <Button color="inherit">Inbox</Button>
-            </NavLink>    
-            {admin && <Box>
-                <Link to={`/dashboard/makeAdmin`}><Button color="inherit">Make Admin</Button></Link>
-                <Link to={`/dashboard/addProducts`}><Button color="inherit">Add Products</Button></Link>
-            </Box>}
+                <NavLink
+                    style={{ textDecoration: 'none', display: "block" }}
+                    to="/dashboard/myCarts">
+                    <Button variant="text"> <Badge badgeContent={4} color="secondary" style={{ margin: '15px' }}>
+                        <ShoppingCartOutlinedIcon color="action" />
+                    </Badge>My Cart</Button>
+                </NavLink>
+
+                <NavLink
+                    style={{ textDecoration: 'none', display: "block" }}
+                    to="/dashboard/myWishlists">
+                    <Button variant="text">
+                        <Badge badgeContent={4} color="secondary" style={{ margin: '15px' }}>
+                            <FavoriteBorderOutlinedIcon color="action" />
+                        </Badge>My WishList</Button>
+                </NavLink>
+                <NavLink
+                    style={{ textDecoration: 'none', display: "block" }}
+                    to="/dashboard/myOrders">
+                    <Button variant="text"> <ShoppingBagOutlinedIcon style={{ margin: '15px' }} /> My Order</Button>
+                </NavLink>
+                <NavLink
+                    style={{ textDecoration: 'none', display: "block" }}
+                    to="/dashboard/myPayments">
+                    <Button variant="text"> <PaymentOutlinedIcon style={{ margin: '15px' }} /> My Payments</Button>
+                </NavLink>
+                <NavLink
+                    style={{ textDecoration: 'none', display: "block" }}
+                    to="/dashboard/inbox">
+                    <Button variant="text"> <UnarchiveOutlinedIcon style={{ margin: '15px' }} />Inbox</Button>
+                </NavLink>
+                {admin && <Box>
+                    <Link to={`/dashboard/makeAdmin`}><Button color="inherit">Make Admin</Button></Link>
+                    <Link to={`/dashboard/addProducts`}><Button color="inherit">Add Products</Button></Link>
+                </Box>}
+            </ButtonGroup>
         </div>
     );
 

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -14,27 +14,19 @@ import UseFireBase from '../../../Hooks/UseFireBase';
 import { Avatar, InputBase } from '@mui/material';
 import { styled, alpha } from '@mui/material/styles';
 import SearchIcon from '@mui/icons-material/Search';
-import Paper from '@mui/material/Paper';
-import Divider from '@mui/material/Divider';
-
-
-
-
-
-
-const pages = ['Home', 'Explore', 'About',];
-
-
-
+import Paper from '@mui/material/Paper'; 
+ 
 const NavigationBar = () => {
   const { user, logout } = UseFireBase()
   let navigate = useNavigate();
   const [anchorElNav, setAnchorElNav] = React.useState(null);
+  const [dashboard, setDashboard] = React.useState("");
 
-  const handleOpenNavMenu = (event) => {
-    setAnchorElNav(event.currentTarget);
-  };
+  const pages = ['Home', 'Explore', 'About', `${dashboard}`]
 
+  useEffect(() => {
+    user?.email ? setDashboard("Dashboard") : setDashboard("")
+  }, [user?.email])
 
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
@@ -49,6 +41,8 @@ const NavigationBar = () => {
         break;
       case "About": navigate('/about')
         break;
+      case "Dashboard": navigate('/dashboard')
+        break;
       default: navigate('/home')
     }
 
@@ -60,8 +54,8 @@ const NavigationBar = () => {
   const goToLogIn = () => {
     navigate('/signIn')
   }
-  const gotToDashboard = () => {
-    navigate('/dashboard')
+  const gotToMyAccount = () => {
+    navigate('/dashboard/myAccount')
   }
 
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -107,14 +101,7 @@ const NavigationBar = () => {
   const handleSearch = (e) => {
     console.log(e.target.value);
   }
-  const onhover = {
-    backgroundColor: 'green',
-    paddingTop: '50px'
-  }
-  const normal = {
-    backgroundColor: 'red',
-    paddingTop: '50px'
-  }
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static" style={{ backgroundColor: "#283442" }} >
@@ -184,7 +171,7 @@ const NavigationBar = () => {
                       'aria-labelledby': 'basic-button',
                     }}
                   >
-                    <MenuItem onClick={gotToDashboard}>Dashboard</MenuItem>
+                    <MenuItem onClick={gotToMyAccount}>MyAccount</MenuItem>
                     <MenuItem onClick={handleLogOut}>Logout</MenuItem>
                   </Menu>
                 </div> : <Button onClick={goToLogIn} style={{ color: 'black' }}  >Login</Button>
@@ -212,7 +199,7 @@ const NavigationBar = () => {
             {pages.map((page) => (
               <MenuItem key={page} onClick={handleCloseNavMenu}>
                 <Typography
-                  textAlign="center" 
+                  textAlign="center"
                   style={{ fontWeight: "700", color: 'white', }}
                   onClick={() => handleNavClicked(page)}>{page}</Typography>
               </MenuItem>

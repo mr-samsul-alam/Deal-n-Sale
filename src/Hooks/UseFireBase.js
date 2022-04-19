@@ -115,12 +115,12 @@ const UseFireBase = () => {
         });
         return () => unsubscribed;
     }, [auth])
-
+    const admin = false;
     return {
         user,
         signUsingGoogle,
         registerUser,
-        // admin,
+        admin,
         logout,
         loginUser,
         isLoading,

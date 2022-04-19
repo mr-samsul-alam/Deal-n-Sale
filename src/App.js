@@ -23,6 +23,7 @@ import MyOrder from './Pages/DashBoard/G_User/MyOrder/MyOrder';
 import Payment from './Pages/DashBoard/G_User/Payment/Payment';
 import Inbox from './Pages/DashBoard/G_User/Inbox/Inbox';
 import MyAccount from './Pages/DashBoard/G_User/MyAccount/MyAccount';
+import MakeAdmin from './Pages/DashBoard/Admin/MakeAdmin/MakeAdmin';
 
 
 function App() {
@@ -41,6 +42,8 @@ function App() {
             <Route exact path="/dashboard/myOrders" element={<MyOrder></MyOrder>}></Route>
             <Route exact path="/dashboard/myPayments" element={<Payment></Payment>}></Route>
             <Route exact path="/dashboard/inbox" element={<Inbox></Inbox>}></Route>
+            <Route exact path="/dashboard/inbox" element={<Inbox></Inbox>}></Route>
+            <Route path={`/dashboard/makeAdmin`} element={<AdminRoute> <MakeAdmin></MakeAdmin> </AdminRoute>}></Route>
             <Route path={`/dashboard/addProducts`} element={<AdminRoute><AddProducts></AddProducts></AdminRoute>}>
             </Route>
           </Route>

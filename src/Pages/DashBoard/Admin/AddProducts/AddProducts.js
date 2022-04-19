@@ -1,69 +1,205 @@
 import React, { useState } from 'react';
-import { Button, Input, TextField } from '@mui/material';
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
+import { Alert, Container, Divider, Typography } from '@mui/material';
+import Snackbar from '@mui/material/Snackbar';
+import IconButton from '@mui/material/IconButton';
+import CloseIcon from '@mui/icons-material/Close';
 
 const AddProducts = () => {
-    const [name, setName] = useState('');
-    const [email, setEmail] = useState('');
-    const [image, setImage] = useState(null);
-    const [success, setSuccess] = useState(false);
-
-    const handleSubmit = e => {
-        e.preventDefault();
-        if (!image) {
+    const [bookingInfo, setBookingInfo] = useState({});
+    const [open, setOpen] = React.useState(false);
+    const handleOnBlur = e => {
+        const field = e.target.name;
+        const value = e.target.value;
+        const newInfo = { ...bookingInfo };
+        newInfo[field] = value;
+        setBookingInfo(newInfo);
+    }
+    const handleClose = (event, reason) => {
+        if (reason === 'clickaway') {
             return;
         }
-        const formData = new FormData();
-        formData.append('name', name);
-        formData.append('email', email);
-        formData.append('image', image);
+        setOpen(false);
+    };
 
-        fetch('https://stark-caverns-04377.herokuapp.com/doctors', {
+    const handleBookingSubmit = e => {
+        // send to the server
+        console.log(bookingInfo)
+        fetch('http://localhost:5000/products', {
             method: 'POST',
-            body: formData
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(bookingInfo)
         })
             .then(res => res.json())
             .then(data => {
                 if (data.insertedId) {
-                    setSuccess('Doctor added successfully')
-                    console.log('doctor added successfully')
+                    setOpen(true);
+                    e.target.reset();
                 }
-            })
-            .catch(error => {
-                console.error('Error:', error);
             });
+
+        e.preventDefault();
     }
 
     return (
-        <div>
-            <h3>Add A Doctor</h3>
-            <form onSubmit={handleSubmit}>
+        <Container style={{ border: '2px solid  #FFE7D9',backgroundColor:'#FFFFFF' , paddingTop: '20px', paddingBottom: '30px' }}>
+            <Typography variant='h4' style={{ textAlign: 'center', justifyContent: "center", padding: '10px' }}>
+                Add Product's
+            </Typography>
+            <Divider />
+            <Divider />
+            <form onSubmit={handleBookingSubmit} style={{padding:'10px'}}>
+
                 <TextField
-                    sx={{ width: '50%' }}
-                    label="Name"
-                    required
-                    onChange={e => setName(e.target.value)}
-                    variant="standard" />
-                <br />
-                <TextField
-                    sx={{ width: '50%' }}
-                    label="Email"
-                    type="email"
-                    required
-                    onChange={e => setEmail(e.target.value)}
-                    variant="standard" />
-                <br />
-                <Input
-                    accept="image/*"
-                    type="file"
-                    onChange={e => setImage(e.target.files[0])}
+                    // required
+                    sx={{ width: '96%', m: 1 }}
+                    id="outlined-size-small"
+                    name="mainPicture"
+                    label="Main Picture Link"
+                    onBlur={handleOnBlur}
+                    size="small"
                 />
-                <br />
-                <Button variant="contained" type="submit">
-                    Add Doctor
-                </Button>
+                <TextField
+                    // required
+                    sx={{ width: '31%', m: 1 }}
+                    id="outlined-size-small"
+                    name="picture2"
+                    label="2nd Picture"
+                    onBlur={handleOnBlur}
+                    size="small"
+                />
+                <TextField
+                    // required
+                    sx={{ width: '31%', m: 1 }}
+                    id="outlined-size-small"
+                    name="picture3"
+                    label="3'rd Picture"
+                    onBlur={handleOnBlur}
+                    size="small"
+                />
+                <TextField
+                    // required
+                    sx={{ width: '31%', m: 1 }}
+                    id="outlined-size-small"
+                    name="picture4"
+                    label="4'th Picture"
+                    onBlur={handleOnBlur}
+                    size="small"
+                />
+
+                <TextField
+                    // required
+                    sx={{ width: '96%', m: 1 }}
+                    id="outlined-size-small"
+                    label="Products Name"
+                    name="productName"
+                    onBlur={handleOnBlur}
+                    size="small"
+                />
+                <TextField
+                    // required
+                    sx={{ width: '31%', m: 1 }}
+                    id="outlined-size-small"
+                    label="Brand Name"
+                    name="brand"
+                    onBlur={handleOnBlur}
+                    size="small"
+                />
+                <TextField
+                    // required
+                    sx={{ width: '31%', m: 1 }}
+                    id="outlined-size-small"
+                    label="Category"
+                    name="category"
+                    onBlur={handleOnBlur}
+                    size="small"
+                />
+                <TextField
+                    // required
+                    sx={{ width: '31%', m: 1 }}
+                    id="outlined-size-small"
+                    label="Sub Category"
+                    name="subCategory"
+                    onBlur={handleOnBlur}
+                    size="small"
+                />
+                <TextField
+                    // required
+                    sx={{ width: '31%', m: 1 }}
+                    id="outlined-size-small"
+                    label="Product Id By Category"
+                    name="id_by_category"
+                    onBlur={handleOnBlur}
+                    size="small"
+                />
+                <TextField
+                    // required
+                    sx={{ width: '31%', m: 1 }}
+                    id="outlined-size-small"
+                    label="Product Id By Sub Category"
+                    name="subCategory"
+                    onBlur={handleOnBlur}
+                    size="small"
+                />
+                <TextField
+                    // required
+                    type="number"
+                    sx={{ width: '31%', m: 1 }}
+                    id="outlined-size-small"
+                    name="price"
+                    label=" Product Price"
+                    onBlur={handleOnBlur}
+                    size="small"
+                />
+                <TextField
+                    // required
+                    type="number"
+                    sx={{ width: '47%', m: 1 }}
+                    id="outlined-size-small"
+                    name="quantity"
+                    label=" Product Quantity"
+                    onBlur={handleOnBlur}
+                    size="small"
+                />
+                <TextField
+                    // required
+                    type="number"
+                    sx={{ width: '47%', m: 1 }}
+                    id="outlined-size-small"
+                    name="rating"
+                    label=" Product Rating"
+                    onBlur={handleOnBlur}
+                    size="small"
+                />
+                <TextField
+                    // required
+                    sx={{ width: '96%', m: 1 }}
+                    id="outlined-size-small"
+                    label="Description"
+                    name="description"
+                    onBlur={handleOnBlur}
+                    size="small"
+                />
+                <Button sx={{ display: 'block', mx: 'auto', paddingX: 3, marginTop: 4 }} type="submit" variant="contained">Submit</Button>
             </form>
-            {success && <p style={{ color: 'green' }}>{success}</p>}
-        </div>
+            <Snackbar
+                anchorOrigin={{
+                    vertical: 'top',
+                    horizontal: 'right',
+                }}
+                open={open}
+                autoHideDuration={6000}
+                onClose={handleClose}
+                style={{ marginTop: '80px', marginRight: '80px' }}
+            >
+                <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
+                    Added Product successfully!
+                </Alert>
+            </Snackbar>
+        </Container >
     );
 };
 

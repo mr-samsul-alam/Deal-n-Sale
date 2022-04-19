@@ -115,7 +115,7 @@ const UseFireBase = () => {
         });
         return () => unsubscribed;
     }, [auth])
-    const admin = false;
+    const admin = true;
     return {
         user,
         signUsingGoogle,

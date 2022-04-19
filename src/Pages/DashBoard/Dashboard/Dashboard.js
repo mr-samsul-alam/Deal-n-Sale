@@ -20,6 +20,8 @@ import AlignHorizontalRightOutlinedIcon from '@mui/icons-material/AlignHorizonta
 import NotificationsActiveOutlinedIcon from '@mui/icons-material/NotificationsActiveOutlined';
 import LogoutIcon from '@mui/icons-material/Logout';
 import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
+import PersonAddAltIcon from '@mui/icons-material/PersonAddAlt';
+import AddBoxIcon from '@mui/icons-material/AddBox';
 import {
     Outlet,
     NavLink,
@@ -28,7 +30,7 @@ import {
 import { Avatar, Badge, Button, ButtonGroup, Menu, MenuItem } from '@mui/material';
 import UseFireBase from '../../../Hooks/UseFireBase';
 
-const drawerWidth = 200;
+const drawerWidth = 250;
 
 function Dashboard(props) {
     let navigate = useNavigate();
@@ -90,18 +92,18 @@ function Dashboard(props) {
                 <NavLink
                     style={{ textDecoration: 'none', display: "block" }}
                     to="/home">
-                    <Button variant="text"  > <ArrowLeftOutlinedIcon style={{ margin: '15px' }} /> Home</Button>
+                    <Button variant="text" style={{ color: '#283442' }} > <ArrowLeftOutlinedIcon style={{ margin: '15px' }} /> Home</Button>
                 </NavLink>
                 <NavLink
                     style={{ textDecoration: 'none', display: "block" }}
                     to="/dashboard">
-                    <Button variant="text"> <DashboardIcon style={{ margin: '15px' }} /> Dashboard</Button>
+                    <Button variant="text" style={{ color: '#283442' }} > <DashboardIcon style={{ margin: '15px' }} /> Dashboard</Button>
                 </NavLink>
 
                 <NavLink
                     style={{ textDecoration: 'none', display: "block" }}
                     to="/dashboard/myCarts">
-                    <Button variant="text"> <Badge badgeContent={4} color="secondary" style={{ margin: '15px' }}>
+                    <Button variant="text" style={{ color: '#283442' }}> <Badge badgeContent={4} color="warning" style={{ margin: '15px' }}>
                         <ShoppingCartOutlinedIcon color="action" />
                     </Badge>My Cart</Button>
                 </NavLink>
@@ -109,41 +111,41 @@ function Dashboard(props) {
                 <NavLink
                     style={{ textDecoration: 'none', display: "block" }}
                     to="/dashboard/myWishlists">
-                    <Button variant="text">
-                        <Badge badgeContent={4} color="secondary" style={{ margin: '15px' }}>
+                    <Button variant="text" style={{ color: '#283442' }}>
+                        <Badge badgeContent={4} color="warning" style={{ margin: '15px' }}>
                             <FavoriteBorderOutlinedIcon color="action" />
                         </Badge>My WishList</Button>
                 </NavLink>
                 <NavLink
                     style={{ textDecoration: 'none', display: "block" }}
                     to="/dashboard/myOrders">
-                    <Button variant="text"> <ShoppingBagOutlinedIcon style={{ margin: '15px' }} /> My Order</Button>
+                    <Button variant="text" style={{ color: '#283442' }}> <ShoppingBagOutlinedIcon style={{ margin: '15px' }} /> My Order</Button>
                 </NavLink>
                 <NavLink
                     style={{ textDecoration: 'none', display: "block" }}
                     to="/dashboard/myPayments">
-                    <Button variant="text"> <PaymentOutlinedIcon style={{ margin: '15px' }} /> My Payments</Button>
+                    <Button variant="text" style={{ color: '#283442' }} > <PaymentOutlinedIcon style={{ margin: '15px' }} /> My Payments</Button>
                 </NavLink>
                 <NavLink
                     style={{ textDecoration: 'none', display: "block" }}
                     to="/dashboard/inbox">
-                    <Button variant="text"> <UnarchiveOutlinedIcon style={{ margin: '15px' }} />Inbox</Button>
+                    <Button variant="text" style={{ color: '#283442' }}> <UnarchiveOutlinedIcon style={{ margin: '15px' }} />Inbox</Button>
                 </NavLink>
                 <NavLink
                     style={{ textDecoration: 'none', display: "block" }}
                     to="/dashboard/myAccount">
-                    <Button variant="text"  > <AccountCircleOutlinedIcon style={{ margin: '15px' }} />MY Account</Button>
+                    <Button variant="text" style={{ color: '#283442' }}  > <AccountCircleOutlinedIcon style={{ margin: '15px' }} />MY Account</Button>
                 </NavLink>
                 {admin && <Box>
                     <NavLink
                         style={{ textDecoration: 'none', display: "block" }}
                         to="/dashboard/makeAdmin">
-                        <Button variant="text"  > <ArrowLeftOutlinedIcon style={{ margin: '15px' }} /> Make Admin</Button>
+                        <Button variant="text" style={{ color: '#283442' }} > <PersonAddAltIcon style={{ margin: '15px' }} /> Make Admin</Button>
                     </NavLink>
                     <NavLink
                         style={{ textDecoration: 'none', display: "block" }}
                         to="/dashboard/addProducts">
-                        <Button variant="text"  > <ArrowLeftOutlinedIcon style={{ margin: '15px' }} />Add Products</Button>
+                        <Button variant="text" style={{ color: '#283442' }} > <AddBoxIcon style={{ margin: '15px' }} />Add Products</Button>
                     </NavLink>
                 </Box>}
                 <Button variant="text" onClick={handleLogOut} > <LogoutIcon style={{ margin: '15px' }} />Sign Out</Button>
@@ -158,13 +160,13 @@ function Dashboard(props) {
         };
     }
     return (
-        <Box sx={{ display: 'flex' }}>
+        <Box sx={{ display: 'flex', backgroundColor: '#CFF1FE' }}>
             <CssBaseline />
             <AppBar
                 position="fixed"
                 sx={{
                     width: { sm: `calc(100% - ${drawerWidth}px)` },
-                    ml: { sm: `${drawerWidth}px` },
+                    ml: { sm: `${drawerWidth}px` }, backgroundColor: '#283442'
                 }}
             >
                 <Toolbar style={{ display: 'flex', justifyContent: 'space-between' }}>
@@ -185,7 +187,7 @@ function Dashboard(props) {
                     <Box style={{ padding: '1px', margin: '10px', borderRadius: '25px', backgroundColor: '#DFDFDF', width: '150px', height: '70x' }}>
                         <Box style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', }}>
                             <Button>
-                                <Badge badgeContent={4} color="primary"  >
+                                <Badge badgeContent={4}  color="warning"  >
                                     <NotificationsActiveOutlinedIcon style={{ color: 'black' }} onClick={notifitionCLick} />
                                 </Badge>
                             </Button>

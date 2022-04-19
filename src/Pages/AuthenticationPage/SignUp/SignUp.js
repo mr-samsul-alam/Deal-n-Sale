@@ -8,26 +8,26 @@ import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import { createTheme, ThemeProvider } from '@mui/material/styles'; 
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { NavLink, useLocation } from 'react-router-dom';
-import { Alert, CircularProgress } from '@mui/material'; 
+import { Alert, CircularProgress } from '@mui/material';
 import UseFireBase from '../../../Hooks/UseFireBase';
 import NavigationBar from '../../Shared/NavigationBar/NavigationBar';
 
 const theme = createTheme();
 
-const SignUp = () => {
-    const location = useLocation();
+const SignUp = () => { 
     const { user, registerUser, isLoading, authError } = UseFireBase();
     const handleSubmit = (event) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
         const email = data.get('email');
         const password = data.get('password');
+        const phnNumber = data.get('phnNumber');
         const name1 = data.get('name1');
         const name2 = data.get('name2');
         let fullName = name1.concat(" ", name2)
-        registerUser(email, password, fullName, location)
+        registerUser(email, password, fullName,phnNumber) 
 
 
     };
@@ -81,6 +81,16 @@ const SignUp = () => {
                                         id="email"
                                         label="Email Address"
                                         name="email"
+                                        autoComplete="email"
+                                    />
+                                </Grid>
+                                <Grid item xs={12}>
+                                    <TextField
+                                        required
+                                        fullWidth
+                                        id="email"
+                                        label="Phone Number"
+                                        name="phnNumber"
                                         autoComplete="email"
                                     />
                                 </Grid>

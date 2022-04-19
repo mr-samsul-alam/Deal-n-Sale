@@ -18,7 +18,7 @@ const UseFireBase = () => {
     const googleProvider = new GoogleAuthProvider();
 
     // This is for sign in with Google
-    const signUsingGoogle = (location, history) => {
+    const signUsingGoogle = (location) => {
         setIsLoading(true);
         signInWithPopup(auth, googleProvider)
             .then(result => {
@@ -27,7 +27,7 @@ const UseFireBase = () => {
                 setAuthError('');
                 const user = result.user
                 setUser(user);
-                saveUser(user?.email, user?.displayName, user?.photoURL, 'PUT')
+                saveUser(user?.email, user?.displayName, user?.photoURL, "undi", 'PUT')
             }).catch((error) => {
                 setAuthError(error.message);
             })
@@ -36,14 +36,14 @@ const UseFireBase = () => {
 
     // Email Pass log In and Reg
 
-    const registerUser = (email, password, name) => {
+    const registerUser = (email, password, name, phnNumber) => {
         setIsLoading(true);
         createUserWithEmailAndPassword(auth, email, password)
             .then((result) => {
                 const newUser = { email, displayName: name }
                 setUser(newUser);
                 //save user to the database
-                saveUser(email, name, undefined, 'POST');
+                saveUser(email, name, "undi", phnNumber, 'POST');
                 //send name to firebase after creation
                 updateProfile(auth.currentUser, {
                     displayName: name
@@ -64,7 +64,6 @@ const UseFireBase = () => {
         signInWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
                 const destination = location?.state?.from || '/';
-                console.log(destination);
                 navigate(destination);
                 setAuthError('');
             })
@@ -91,8 +90,8 @@ const UseFireBase = () => {
                 setAuthError(error);
             }).finally(() => setIsLoading(false));
     }
-    const saveUser = (email, displayName, photoURL, method) => {
-        const user = { email, displayName, photoURL };
+    const saveUser = (email, displayName, photoURL, phnNumber, method) => {
+        const user = { email, displayName, photoURL, phnNumber };
         fetch('http://localhost:5000/users', {
             method: method,
             headers: {

@@ -14,7 +14,7 @@ const SingleProductDetails = () => {
     //getting product data from useContext
     const { products, progress, buffer } = UseProductsData()
     //filtering product by getting product code  
-    const product = products.filter(product => (product?.id_by_subCategory === id));
+    const product = products.filter(product => (product?.subCategory === id));
     const singleProduct = product[0]
 
     // initial price coming from db
@@ -121,8 +121,8 @@ const SingleProductDetails = () => {
                                 <Button>{quantity}</Button>
                                 <Button onClick={() => upDate("plus", quantity)}>+</Button>
                             </ButtonGroup>
-                            <Button onClick={handleWish}>Add to Wish</Button>
                             <Button onClick={handleAddToCart}>Add to Cart</Button>
+                            <Button onClick={handleWish}>Add to Wish</Button>
                         </Grid>
                     </Grid>) : (<Grid container spacing={2} style={{ margin: '2px solid red' }}>
                         <Grid item xs={12} md={6}>

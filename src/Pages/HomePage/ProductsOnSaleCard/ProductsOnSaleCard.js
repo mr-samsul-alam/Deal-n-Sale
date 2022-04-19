@@ -17,18 +17,19 @@ const cardOnHover = ({ hover }) => ({
     borderLeftColor: hover ? '#D8C3A5' : 'white',
 })
 const ProductsOnSaleCard = (props) => {
-    const navigate = useNavigate(); 
-    const { _id, id_by_subCategory, productName, mainPicture,rating,price } = props.product || []
+    const navigate = useNavigate();
+    const { _id, subCategory, productName, mainPicture, rating, price } = props.product || []
+    console.log(productName)
     const [hover, setHover] = useState(false)
     // const id_by_subCategory = false
     const goToDetails = (id) => {
-        navigate(`/product/${id_by_subCategory}`)
+        navigate(`/product/${subCategory}`)
     }
     return (
         <Grid item xs={12} md={4} style={{ paddingTop: "30px", }}   >
             {/* <Box sx={{ mx: '2px', transform: 'scale(0.8)' }}> */}
             {
-                id_by_subCategory ? (<ButtonBase onClick={() => goToDetails(_id)} >
+                subCategory ? (<ButtonBase onClick={() => goToDetails(_id)} >
                     {/* elevation={24} variant='elevation' */}
                     <Card style={cardOnHover({ hover })}
                         onPointerOver={() => setHover(true)}

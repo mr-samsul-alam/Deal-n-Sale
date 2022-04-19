@@ -6,6 +6,7 @@ import { Box, Button, Card, CardContent, CardMedia, Container, Divider, Grid, Ic
 import { PhotoCamera } from '@mui/icons-material';
 const MyAccount = () => {
     const { user } = UseFireBase()
+    console.log(user.email)
     const [userData, setUserData] = useState({});
     const [editView, setEditView] = useState(true);
     const [progress, setProgress] = React.useState(20);
@@ -13,9 +14,15 @@ const MyAccount = () => {
     useEffect(() => {
         setBuffer(40)
         setProgress(50)
-        fetch(`http://localhost:5000/users/contactsamsulalam@gmail.com`)
-            .then(res => res.json())
-            .then(data => setUserData(data))
+        if (user?.email !== undefined) {
+            fetch(`http://localhost:5000/users/${user?.email}`)
+                .then(res => res.json())
+                .then(data => setUserData(data))
+        }
+        else {
+            console.log("dsdfafccfa");
+        }
+
         setBuffer(100)
         setProgress(100)
 
@@ -49,6 +56,12 @@ const MyAccount = () => {
                             </Typography >
                             <Typography variant='h5'>
                                 <b style={{ color: '#646464' }}>{userData?.displayName}</b>
+                            </Typography>
+                            <Typography variant='h6'>
+                                Mobile Number :
+                            </Typography >
+                            <Typography variant='h5'>
+                                <b style={{ color: '#646464' }}>{userData?.phnNumber}</b>
                             </Typography>
                             <Typography variant='h6'>
                                 Email Address:
@@ -86,6 +99,12 @@ const MyAccount = () => {
                                     <TextField defaultValue={userData?.displayName} />
                                 </Typography>
                                 <Typography variant='h6'>
+                                    Mobile Number :
+                                </Typography >
+                                <Typography variant='h5'>
+                                    <TextField defaultValue={userData?.phnNumber} />
+                                </Typography>
+                                <Typography variant='h6'>
                                     Email Address:
                                 </Typography>
                                 <Typography variant='h6'>
@@ -100,7 +119,7 @@ const MyAccount = () => {
                             </Grid>
 
                         </Grid>
-                        <Box style={{ display: 'flex', justifyContent: 'center' ,paddingTop:'50px',paddingBottom:'30px'}} >
+                        <Box style={{ display: 'flex', justifyContent: 'center', paddingTop: '50px', paddingBottom: '30px' }} >
                             <Button variant="contained" >Saved</Button>
                         </Box>
                     </>)}

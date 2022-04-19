@@ -5,8 +5,8 @@ import UseProductsData from '../../../Hooks/UseProductsData';
 
 
 const ProductOnSale = () => {
-    const { products } = UseProductsData()
-    const productSliced = products.slice(0, 3)
+    const { products } = UseProductsData() 
+    const productSliced = products.slice(0, 3) 
     return (
         <Container style={{ marginTop: '70px' }}>
             <Typography variant="div" style={{ textAlign: 'center', }}>

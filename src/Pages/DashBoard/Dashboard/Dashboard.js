@@ -6,18 +6,13 @@ import CssBaseline from '@mui/material/CssBaseline';
 import Divider from '@mui/material/Divider';
 import Drawer from '@mui/material/Drawer';
 import IconButton from '@mui/material/IconButton';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import MailIcon from '@mui/icons-material/Mail';
 import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import {
     Outlet,
-    Link
+    Link,
+    NavLink
 } from "react-router-dom";
 import { Button } from '@mui/material';
 import UseFireBase from '../../../Hooks/UseFireBase';
@@ -28,26 +23,65 @@ function Dashboard(props) {
     const { window } = props;
     const [mobileOpen, setMobileOpen] = React.useState(false);
 
-    const { admin } = UseFireBase();
+    const { admin, user } = UseFireBase();
     const handleDrawerToggle = () => {
         setMobileOpen(!mobileOpen);
     };
 
     const drawer = (
         <div>
-            <Toolbar />
-            <Divider />
-            <Link to="/home"><Button color="inherit">Home</Button></Link>
-            <Link to="/dashboard"><Button color="inherit">Dashboard</Button></Link>
-            <Link to="/dashboard/myCarts"><Button color="inherit">My Cart</Button></Link>
-            <Link to="/dashboard/myWishlists"><Button color="inherit">My WishList</Button></Link>
-            <Link to="/dashboard/myOrders"><Button color="inherit">My Order</Button></Link>
-            <Link to="/dashboard/myPayments"><Button color="inherit">My Payments</Button></Link>
-            <Link to="/dashboard/inbox"><Button color="inherit">Inbox</Button></Link>
+
+            <Typography variant="h4" component="div" sx={{ p: 1 }} gutterBottom  >
+                Dashboard
+            </Typography>
+
+            <Box style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', padding: '10px', margin: '10px', borderRadius: '25px', backgroundColor: '#DFDFDF' }}>
+                <img src={user?.photoURL} alt="" style={{ borderRadius: '50%', width: '25%' }} />
+                <Typography>
+                    {user?.displayName}
+                </Typography>
+            </Box>
+            <NavLink
+                style={{ textDecoration: 'none', display: "block" }}
+                to="/home">
+                <Button color="inherit">Home</Button>
+            </NavLink>
+            <NavLink
+                style={{ textDecoration: 'none', display: "block" }}
+                to="/dashboard">
+                <Button color="inherit">Dashboard</Button>
+            </NavLink>
+
+            <NavLink
+                style={{ textDecoration: 'none', display: "block" }}
+                to="/dashboard/myCarts">
+                <Button color="inherit">My Cart</Button>
+            </NavLink>
+
+            <NavLink
+                style={{ textDecoration: 'none', display: "block" }}
+                to="/dashboard/myWishlists">
+                <Button color="inherit">My WishList</Button>
+            </NavLink>
+            <NavLink
+                style={{ textDecoration: 'none', display: "block" }}
+                to="/dashboard/myOrders">
+                <Button color="inherit">My Order</Button>
+            </NavLink>  
+            <NavLink
+                style={{ textDecoration: 'none', display: "block" }}
+                to="/dashboard/myPayments">
+                <Button color="inherit">My Payments</Button>
+            </NavLink>  
+            <NavLink
+                style={{ textDecoration: 'none', display: "block" }}
+                to="/dashboard/inbox">
+                <Button color="inherit">Inbox</Button>
+            </NavLink>    
             {admin && <Box>
                 <Link to={`/dashboard/makeAdmin`}><Button color="inherit">Make Admin</Button></Link>
                 <Link to={`/dashboard/addProducts`}><Button color="inherit">Add Products</Button></Link>
-            </Box>} 
+            </Box>}
         </div>
     );
 

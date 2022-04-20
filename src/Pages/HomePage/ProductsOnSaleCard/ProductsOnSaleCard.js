@@ -18,8 +18,7 @@ const cardOnHover = ({ hover }) => ({
 })
 const ProductsOnSaleCard = (props) => {
     const navigate = useNavigate();
-    const { _id, subCategory, productName, mainPicture, rating, price } = props.product || []
-    console.log(productName)
+    const { _id, subCategory, productName, mainPicture, rating, price } = props.product || [] 
     const [hover, setHover] = useState(false)
     // const id_by_subCategory = false
     const goToDetails = (id) => {

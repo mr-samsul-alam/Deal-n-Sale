@@ -139,8 +139,8 @@ const AddProducts = () => {
                    required
                     sx={{ width: '31%', m: 1 }}
                     id="outlined-size-small"
-                    label="Product Id By Sub Category"
-                    name="subCategory"
+                    label="Product Code"
+                    name="productCode"
                     onBlur={handleOnBlur}
                     size="small"
                 />

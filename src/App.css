@@ -1,4 +1,3 @@
- 
 .App-logo {
   height: 40vmin;
   pointer-events: none;
@@ -9,9 +8,12 @@
     animation: App-logo-spin infinite 20s linear;
   }
 }
-/* *{
-border: 2px solid red;
+
+/* * {
+  border: 2px solid red;
 } */
+
+ 
 
 .App-header {
   background-color: #282c34;
@@ -32,6 +34,7 @@ border: 2px solid red;
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }

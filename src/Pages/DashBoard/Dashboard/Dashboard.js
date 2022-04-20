@@ -29,6 +29,7 @@ import {
 } from "react-router-dom";
 import { Avatar, Badge, Button, ButtonGroup, Menu, MenuItem } from '@mui/material';
 import UseFireBase from '../../../Hooks/UseFireBase';
+import UseMyCartsData from '../../../Hooks/UseMyCartsData';
 
 const drawerWidth = 250;
 
@@ -36,9 +37,8 @@ function Dashboard(props) {
     let navigate = useNavigate();
     const { window } = props;
     const [mobileOpen, setMobileOpen] = React.useState(false);
-
+    const { carts } = UseMyCartsData()
     const { admin, user, logout } = UseFireBase();
-
     const handleDrawerToggle = () => {
         setMobileOpen(!mobileOpen);
     };
@@ -103,7 +103,7 @@ function Dashboard(props) {
                 <NavLink
                     style={{ textDecoration: 'none', display: "block" }}
                     to="/dashboard/myCarts">
-                    <Button variant="text" style={{ color: '#283442' }}> <Badge badgeContent={4} color="warning" style={{ margin: '15px' }}>
+                    <Button variant="text" style={{ color: '#283442' }}> <Badge badgeContent={carts?.length} color="warning" style={{ margin: '15px' }}>
                         <ShoppingCartOutlinedIcon color="action" />
                     </Badge>My Cart</Button>
                 </NavLink>
@@ -186,8 +186,13 @@ function Dashboard(props) {
                     </Typography>
                     <Box style={{ padding: '1px', margin: '10px', borderRadius: '25px', backgroundColor: '#DFDFDF', width: '150px', height: '70x' }}>
                         <Box style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', }}>
+
+
+
+
+
                             <Button>
-                                <Badge badgeContent={4}  color="warning"  >
+                                <Badge badgeContent={1} color="warning"  >
                                     <NotificationsActiveOutlinedIcon style={{ color: 'black' }} onClick={notifitionCLick} />
                                 </Badge>
                             </Button>
@@ -254,7 +259,7 @@ function Dashboard(props) {
                 <Toolbar />
                 <Outlet></Outlet>
             </Box>
-        </Box>
+        </Box >
     );
 }
 

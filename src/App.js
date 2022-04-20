@@ -62,7 +62,7 @@ function App() {
           <Route exact path="/" element={<HomePage />}>
           </Route>
         </Routes>
-        <Footer></Footer>
+        {/* <Footer></Footer> */}
       </Router>
     </div>
   );

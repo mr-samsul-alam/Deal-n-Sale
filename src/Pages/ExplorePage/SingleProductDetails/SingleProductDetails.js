@@ -7,6 +7,7 @@ import UseFireBase from '../../../Hooks/UseFireBase';
 import NavigationBar from '../../Shared/NavigationBar/NavigationBar';
 import { addToDb } from '../../../Utilities/SavedToLocalStorage';
 import { Box } from '@mui/system';
+import AddToCart from '../AddToCart/AddToCart';
 const SingleProductDetails = () => {
     const [quantity, setQuantity] = useState(1);
     const { user } = UseFireBase()
@@ -14,25 +15,23 @@ const SingleProductDetails = () => {
     //getting product data from useContext
     const { products, progress, buffer } = UseProductsData()
     //filtering product by getting product code  
-    const product = products.filter(product => (product?.subCategory === id));
-    const singleProduct = product[0]
+    const product = products.find(product => (product?.subCategory === id)); 
 
     // initial price coming from db
-    const [newPrice, setPrice] = useState(singleProduct?.price);
-    const [livePicture, setPicture] = useState(singleProduct?.mainPicture);
+    const [newPrice, setPrice] = useState(product?.price);
+    const [livePicture, setPicture] = useState(product?.mainPicture);
     //updating quantity and price and also showing live price on site according to quantity 
     const upDate = (prop, quantity) => {
         if (quantity >= 1) {
             if (prop === "plus") {
                 setQuantity(quantity + 1);
-                const price = singleProduct?.price;
+                const price = product?.price;
                 let newPrice = price * (quantity + 1);
-                console.log(newPrice);
                 setPrice(newPrice)
             }
             else {
                 setQuantity(quantity - 1)
-                const price = singleProduct?.price;
+                const price = product?.price;
                 let newPrice = price * (quantity - 1);
                 console.log(newPrice);
                 setPrice(newPrice)
@@ -42,7 +41,7 @@ const SingleProductDetails = () => {
         else if (quantity >= 0) {
             if (prop === "plus") {
                 setQuantity(quantity + 1);
-                const price = singleProduct?.price;
+                const price = product?.price;
                 let newPrice = price * quantity;
                 console.log(newPrice);
                 setPrice(newPrice)
@@ -54,24 +53,20 @@ const SingleProductDetails = () => {
     const CartDetails = {
         name: `${user?.displayName}`,
         email: `${user?.email}`,
-        productName: `${singleProduct?.productName}`,
-        productImg: `${singleProduct?.mainPicture}`,
+        productCode: `${product?.productCode}`,
+        productName: `${product?.productName}`,
+        productImg: `${product?.mainPicture}`,
         quantity: `${quantity}`,
-        perUnit: `${singleProduct?.price}`,
-        status: 'pending'
-    }
-    //Sending data to local storage
-    const handleWish = () => {
-        console.log(singleProduct?.id_by_subCategory);
-        addToDb(singleProduct?.id_by_subCategory, quantity)
+        price: `${newPrice ? (newPrice) : (product?.price)}`,
+        paymentStatus: 'pending'
     }
 
 
-    //Sending Data To Cart Details
-    const handleAddToCart = () => {
-        // liveNetPrice()
-        console.log(singleProduct?.id_by_subCategory);
-    }
+
+
+
+
+
     const handleClick = (link) => {
         setPicture(link)
     }
@@ -81,39 +76,39 @@ const SingleProductDetails = () => {
             <LinearProgress variant="buffer" value={progress} valueBuffer={buffer} />
             <Container>
                 {
-                    singleProduct ? (<Grid container spacing={2} style={{ margin: '2px solid red' }}>
+                    product ? (<Grid container spacing={2} style={{ margin: '2px solid red' }}>
                         <Grid item xs={12} md={6}>
                             <Box style={{ display: 'flex', justifyContent: 'center' }}>
                                 {
-                                    livePicture ? <img src={livePicture} width="200px" alt="" /> : <img src={singleProduct?.mainPicture} width="200px" alt="" />
+                                    livePicture ? <img src={livePicture} width="200px" alt="" /> : <img src={product?.mainPicture} width="200px" alt="" />
                                 }
                             </Box>
 
                             <Box style={{ display: 'flex', justifyContent: 'center' }}>
-                                <Box onClick={() => handleClick(singleProduct?.picture2)}>
-                                    <img src={singleProduct?.picture2} width="100px" alt="" />
+                                <Box onClick={() => handleClick(product?.picture2)}>
+                                    <img src={product?.picture2} width="100px" alt="" />
                                 </Box>
-                                <Box onClick={() => handleClick(singleProduct?.picture3)}>
-                                    <img src={singleProduct?.picture3} width="100px" alt="" /></Box>
-                                <Box onClick={() => handleClick(singleProduct?.picture4)}>
-                                    <img src={singleProduct?.picture4} width="100px" alt="" />
+                                <Box onClick={() => handleClick(product?.picture3)}>
+                                    <img src={product?.picture3} width="100px" alt="" /></Box>
+                                <Box onClick={() => handleClick(product?.picture4)}>
+                                    <img src={product?.picture4} width="100px" alt="" />
                                 </Box>
                             </Box>
                         </Grid>
                         <Grid item xs={12} md={6}>
-                            <Typography style={{ fontWeight: 'bolder', fontSize: '2rem' }}>{singleProduct?.productName}</Typography>
+                            <Typography style={{ fontWeight: 'bolder', fontSize: '2rem' }}>{product?.productName}</Typography>
                             <Typography  >
                                 <Rating name="half-rating-read" style={{ color: '#D8C3A5' }} defaultValue={4} precision={0.5} readOnly />
                             </Typography>
                             <Typography>
                                 {
-                                    newPrice ? <Typography>{newPrice}</Typography> : <Typography>{singleProduct?.price}</Typography>
+                                    newPrice ? <Typography>{newPrice}</Typography> : <Typography>{product?.price}</Typography>
                                 }
 
                             </Typography>
 
                             <Typography  >
-                                {singleProduct?.description}
+                                {product?.description}
                             </Typography>
 
                             <ButtonGroup variant="outlined" aria-label="outlined button group">
@@ -121,8 +116,7 @@ const SingleProductDetails = () => {
                                 <Button>{quantity}</Button>
                                 <Button onClick={() => upDate("plus", quantity)}>+</Button>
                             </ButtonGroup>
-                            <Button onClick={handleAddToCart}>Add to Cart</Button>
-                            <Button onClick={handleWish}>Add to Wish</Button>
+                            <AddToCart CartDetails={CartDetails} ></AddToCart>
                         </Grid>
                     </Grid>) : (<Grid container spacing={2} style={{ margin: '2px solid red' }}>
                         <Grid item xs={12} md={6}>

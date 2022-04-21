@@ -9,16 +9,16 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
-import { useNavigate } from 'react-router';
-import UseFireBase from '../../../Hooks/UseFireBase';
+import { useNavigate } from 'react-router'; 
 import { Avatar, InputBase } from '@mui/material';
 import { styled, alpha } from '@mui/material/styles';
 import SearchIcon from '@mui/icons-material/Search';
 import Paper from '@mui/material/Paper';
 import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
+import UseAuth from '../../../FireBase/UseAuth';
 
 const NavigationBar = () => {
-  const { user, logout } = UseFireBase()
+  const { user, logout } = UseAuth() 
   let navigate = useNavigate();
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [dashboard, setDashboard] = React.useState("");

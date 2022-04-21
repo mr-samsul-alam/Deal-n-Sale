@@ -10,14 +10,14 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { NavLink, useLocation } from 'react-router-dom';
-import { Alert, CircularProgress } from '@mui/material';
-import UseFireBase from '../../../Hooks/UseFireBase';
+import { Alert, CircularProgress } from '@mui/material'; 
 import NavigationBar from '../../Shared/NavigationBar/NavigationBar';
+import UseAuth from '../../../FireBase/UseAuth';
 
 const theme = createTheme();
 
 const SignUp = () => { 
-    const { user, registerUser, isLoading, authError } = UseFireBase();
+    const { user, registerUser, isLoading, authError } = UseAuth();
     const handleSubmit = (event) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);

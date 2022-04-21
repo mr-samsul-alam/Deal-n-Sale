@@ -1,19 +1,17 @@
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { Alert, Button, ButtonGroup, Container, Grid, Rating, Skeleton, Typography } from '@mui/material';
-import UseProductsData from '../../../Hooks/UseProductsData';
-import LinearProgress from '@mui/material/LinearProgress';
-import UseFireBase from '../../../Hooks/UseFireBase';
+import { Alert, Button, ButtonGroup, Container, Grid, Rating, Skeleton, Typography } from '@mui/material'; 
+import LinearProgress from '@mui/material/LinearProgress'; 
 import NavigationBar from '../../Shared/NavigationBar/NavigationBar';
 import { addToDb } from '../../../Utilities/SavedToLocalStorage';
 import { Box } from '@mui/system';
 import AddToCart from '../AddToCart/AddToCart';
+import UseAuth from '../../../FireBase/UseAuth';
 const SingleProductDetails = () => {
     const [quantity, setQuantity] = useState(1);
-    const { user } = UseFireBase()
-    const { id } = useParams()
-    //getting product data from useContext
-    const { products, progress, buffer } = UseProductsData()
+
+    const { user, products, progress, buffer} = UseAuth()
+    const { id } = useParams() 
     //filtering product by getting product code  
     const product = products.find(product => (product?.subCategory === id)); 
 

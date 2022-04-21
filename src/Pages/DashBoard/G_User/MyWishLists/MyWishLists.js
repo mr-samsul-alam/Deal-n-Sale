@@ -1,9 +1,10 @@
 import React, { useEffect } from 'react';
+import UseAuth from '../../../../FireBase/UseAuth';
 import UseProductsData from '../../../../Hooks/UseProductsData';
 import { getStoredCart } from '../../../../Utilities/SavedToLocalStorage';
 
 const MyWishLists = () => {
-    const { products, progress, buffer } = UseProductsData()
+    const { products, progress, buffer } = UseAuth()
 
     useEffect(() => {
         const savedWish = getStoredCart();

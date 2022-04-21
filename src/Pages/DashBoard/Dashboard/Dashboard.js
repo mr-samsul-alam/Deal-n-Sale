@@ -27,9 +27,9 @@ import {
     NavLink,
     useNavigate
 } from "react-router-dom";
-import { Avatar, Badge, Button, ButtonGroup, Menu, MenuItem } from '@mui/material';
-import UseFireBase from '../../../Hooks/UseFireBase';
+import { Avatar, Badge, Button, ButtonGroup, Menu, MenuItem } from '@mui/material'; 
 import UseMyCartsData from '../../../Hooks/UseMyCartsData';
+import UseAuth from '../../../FireBase/UseAuth';
 
 const drawerWidth = 250;
 
@@ -38,7 +38,7 @@ function Dashboard(props) {
     const { window } = props;
     const [mobileOpen, setMobileOpen] = React.useState(false);
     const { carts } = UseMyCartsData()
-    const { admin, user, logout } = UseFireBase();
+    const { admin, user, logout } = UseAuth();
     const handleDrawerToggle = () => {
         setMobileOpen(!mobileOpen);
     };

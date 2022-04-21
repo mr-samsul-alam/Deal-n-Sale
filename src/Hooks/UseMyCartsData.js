@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
-import UseFireBase from './UseFireBase';
+import React, { useEffect, useState } from 'react'; 
+import UseAuth from '../FireBase/UseAuth';
 
 const UseMyCartsData = () => {
-    const { user } = UseFireBase()
+    const { user } = UseAuth()
     const [carts, setCarts] = useState([]);
     const [progress, setProgress] = React.useState(20);
     const [buffer, setBuffer] = React.useState(30);

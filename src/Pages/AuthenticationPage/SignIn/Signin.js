@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { Container, Typography, TextField, Button, CircularProgress, Alert } from '@mui/material';
 import { NavLink, useLocation, useNavigate } from 'react-router-dom';
-import NavigationBar from '../../Shared/NavigationBar/NavigationBar'; 
-import UseFireBase from '../../../Hooks/UseFireBase';
+import NavigationBar from '../../Shared/NavigationBar/NavigationBar';  
+import UseAuth from '../../../FireBase/UseAuth';
 const SignIn = () => {
-    const { signUsingGoogle, loginUser, user, isLoading, authError } = UseFireBase()
+    const { signUsingGoogle, loginUser, user, isLoading, authError } = UseAuth()
     const [loginData, setLoginData] = useState({});
     const handleOnBlur = e => {
         const field = e.target.name;

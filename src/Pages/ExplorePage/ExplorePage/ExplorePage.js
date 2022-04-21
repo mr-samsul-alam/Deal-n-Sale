@@ -1,11 +1,11 @@
 import { Container, Grid, LinearProgress } from '@mui/material';
 import React from 'react';
-import UseProductsData from '../../../Hooks/UseProductsData';
+import UseAuth from '../../../FireBase/UseAuth'; 
 import ProductsOnSaleCard from '../../HomePage/ProductsOnSaleCard/ProductsOnSaleCard';
 import NavigationBar from '../../Shared/NavigationBar/NavigationBar';
 
-const ExplorePage = () => {
-    const { products, progress, buffer } = UseProductsData()
+const ExplorePage = () => { 
+    const { products, progress, buffer } = UseAuth()
     return (
         <>
             <NavigationBar></NavigationBar>

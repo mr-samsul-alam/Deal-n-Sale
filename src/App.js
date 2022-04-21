@@ -24,12 +24,14 @@ import Payment from './Pages/DashBoard/G_User/Payment/Payment';
 import Inbox from './Pages/DashBoard/G_User/Inbox/Inbox';
 import MyAccount from './Pages/DashBoard/G_User/MyAccount/MyAccount';
 import MakeAdmin from './Pages/DashBoard/Admin/MakeAdmin/MakeAdmin';
+import AuthProvider from './Context/AuthProvider';
 
 
 function App() {
   return (
     <div className="App">
       <Router>
+        <AuthProvider>
         <Routes>
           <Route path="/about" element={<PrivateRoute><AboutPage /></PrivateRoute>}>
           </Route>
@@ -63,6 +65,7 @@ function App() {
           </Route>
         </Routes>
         {/* <Footer></Footer> */}
+        </AuthProvider> 
       </Router>
     </div>
   );

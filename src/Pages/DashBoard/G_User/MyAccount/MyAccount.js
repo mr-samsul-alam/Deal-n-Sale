@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react';
-import UseFireBase from '../../../../Hooks/UseFireBase';
+import React, { useEffect, useState } from 'react'; 
 import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
 import ModeEditOutlinedIcon from '@mui/icons-material/ModeEditOutlined';
 import { Box, Button, Card, CardContent, CardMedia, Container, Divider, Grid, IconButton, Input, TextField, Typography } from '@mui/material';
 import { PhotoCamera } from '@mui/icons-material';
+import UseAuth from '../../../../FireBase/UseAuth';
 const MyAccount = () => {
-    const { user } = UseFireBase()
+    const { user } = UseAuth()
     console.log(user.email)
     const [userData, setUserData] = useState({});
     const [editView, setEditView] = useState(true);

@@ -30,8 +30,7 @@ const MyWishListTable = ({ row, wish, setWish }) => {
                     type="number" defaultValue={row?.quantity}
                 />
             </TableCell>
-            <TableCell align="center">{row?.price}</TableCell>
-            <TableCell align="center">{row?.paymentStatus}</TableCell>
+            <TableCell align="center">{row?.price}</TableCell> 
             <TableCell align="center"> <Button onClick={() => deleteCart(row?._id)} >Delete</Button> </TableCell>
             {/* <TableCell align="right">{ccyFormat(row?.price)}</TableCell> */}
         </TableRow>

@@ -124,7 +124,7 @@ const AddToCart = (props) => {
                                 Product Quantity : {quantity}
                             </Typography>
                             <Typography id="transition-modal-description"  >
-                                Net Price : {price}
+                                Net Price : $ {props?.newPrice}
                             </Typography>
                             {
                                 <PrivateRoute><Button onClick={handleAddToCart} variant="contained">ok</Button></PrivateRoute>

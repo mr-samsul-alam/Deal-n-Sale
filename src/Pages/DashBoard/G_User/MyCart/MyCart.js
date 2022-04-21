@@ -7,21 +7,52 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import { Button, LinearProgress, TextField, Typography } from '@mui/material';
+import { Button, LinearProgress, Typography } from '@mui/material';
 import MyCartTable from './MyCartTable';
+import { useNavigate } from 'react-router-dom';
+import UseAuth from '../../../../FireBase/UseAuth';
 
 
 
 const MyCart = () => {
     const { carts, cartsProgress, cartBuffer } = UseMyCartsData()
+    const { user } = UseAuth()
+    const navigate = useNavigate()
     const [cart, setCart] = useState(carts)
-
-
-
-
     useEffect(() => {
         setCart(carts)
     }, [carts])
+
+
+
+
+    const gdTotal = cart?.reduce((acc, item) => acc + item.quantity * item.price, 0).toFixed(2)
+
+    // making object for sending db
+    const CartDetails = {
+        email: `${user?.email}`,
+        name: `${user?.displayName}`,
+        carts: carts,
+        totalPrice: parseFloat(gdTotal),
+        paymentStatus: 'pending'
+    }
+    const handlePayments = () => {
+        fetch('http://localhost:5000/payments', {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(CartDetails)
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.insertedId) {
+                    alert("added to payment page successfully")
+                }
+            });
+        console.log('submitted')
+    }
+
     return (
         <>
             <LinearProgress variant="buffer" value={cartsProgress} valueBuffer={cartBuffer} />
@@ -42,26 +73,24 @@ const MyCart = () => {
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {cart.map((row) => <MyCartTable row={row} setCart={setCart} cart={cart}></MyCartTable>)}
+                            {cart.map((row) => <MyCartTable key={row?._id} row={row} setCart={setCart} cart={cart}></MyCartTable>)}
                             <TableRow>
-                                <TableCell rowSpan={3} />
-                                <TableCell align="center" colSpan={2}>Subtotal</TableCell>
-                                {/* <TableCell align="center">{row?.price}</TableCell> */}
+                                <TableCell />
+                                <TableCell align="center" >Subtotal = {gdTotal} </TableCell>
                             </TableRow>
                             <TableRow>
-                                <TableCell rowSpan={3} />
-                                <TableCell>Tax</TableCell>
-                                {/* <TableCell align="center">{`${(row?.price / 100)?.toFixed(0)} %`}</TableCell> */}
-                                {/* <TableCell align="right">{ccyFormat(invoiceTaxes)}</TableCell> */}
+                                <TableCell />
+                                <TableCell align="center">Tax 10% = {((gdTotal / 100) * 10)}</TableCell>
                             </TableRow>
                             <TableRow>
+                                <TableCell />
+                                <TableCell align="center">Total = {((gdTotal / 100) * 10) + parseFloat(gdTotal)}</TableCell>
                                 {/* <TableCell colSpan={2}>Total = {row?.price}</TableCell> */}
                                 {/* <TableCell align="right">{ccyFormat(invoiceTotal)}</TableCell> */}
                             </TableRow>
-
-
                         </TableBody>
                     </Table>
+                    <Button onClick={handlePayments} >Complete PayMent</Button>
                 </TableContainer>
             </div>
         </>

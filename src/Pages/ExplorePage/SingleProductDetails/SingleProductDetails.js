@@ -55,7 +55,7 @@ const SingleProductDetails = () => {
         productName: `${product?.productName}`,
         productImg: `${product?.mainPicture}`,
         quantity: `${quantity}`,
-        price: `${newPrice ? (newPrice) : (product?.price)}`,
+        price: `${product?.price}`,
         paymentStatus: 'pending'
     }
 
@@ -112,7 +112,7 @@ const SingleProductDetails = () => {
                                 <Button>{quantity}</Button>
                                 <Button onClick={() => upDate("plus", quantity)}>+</Button>
                             </ButtonGroup>
-                            <AddToCart CartDetails={CartDetails} ></AddToCart>
+                            <AddToCart newPrice={newPrice} CartDetails={CartDetails} ></AddToCart>
                         </Grid>
                     </Grid>) : (<Grid container spacing={2} style={{ margin: '2px solid red' }}>
                         <Grid item xs={12} md={6}>

@@ -1,23 +1,23 @@
-import React, { useEffect, useState } from 'react'; 
+import React, { useEffect, useState } from 'react';
 import UseAuth from '../FireBase/UseAuth';
 
 const UseMyCartsData = () => {
     const { user } = UseAuth()
     const [carts, setCarts] = useState([]);
-    const [progress, setProgress] = React.useState(20);
-    const [buffer, setBuffer] = React.useState(30);
+    const [cartsProgress, setCartsProgress] = React.useState(20);
+    const [cartBuffer, setCartBuffer] = React.useState(30);
     useEffect(() => {
-        setBuffer(40)
-        setProgress(50)
+        setCartBuffer(40)
+        setCartsProgress(50)
         fetch(`http://localhost:5000/carts/${user?.email}`)
             .then(res => res.json())
             .then(data => setCarts(data))
-        setBuffer(100)
-        setProgress(100)
+        setCartBuffer(100)
+        setCartsProgress(100)
 
 
     }, [user?.email])
-    return { carts, progress, buffer }
+    return { carts, cartsProgress, cartBuffer }
 };
 
 export default UseMyCartsData;

@@ -9,8 +9,8 @@ import Typography from '@mui/material/Typography';
 import { Alert, Container, Snackbar } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import PrivateRoute from '../../AuthenticationPage/PrivateRoute/PrivateRoute';
-
-
+import ShoppingCartCheckoutIcon from '@mui/icons-material/ShoppingCartCheckout';
+import CardGiftcardIcon from '@mui/icons-material/CardGiftcard';
 
 const style = {
     position: 'absolute',
@@ -27,9 +27,11 @@ const style = {
 const AddToCart = (props) => {
     const [open, setOpen] = React.useState(false);
     const [success, setSuccess] = React.useState(false);
+    const [wishSuccess, setWishSuccess] = React.useState(false);
     const handleClose = () => setOpen(false);
-    const { productName, productImg, quantity, price, productCode } = props?.CartDetails || []
+    const { productName, productImg, quantity, price } = props?.CartDetails || []
     const navigate = useNavigate()
+
     //Sending Data To Cart Details
     const handleAddToCart = () => {
         setOpen(false)
@@ -56,22 +58,44 @@ const AddToCart = (props) => {
         setOpen(true)
     }
     //Sending data to local storage
-    const handleWish = () => { 
-        addToDb(productCode, quantity)
+    const handleWish = () => {
+        fetch('http://localhost:5000/wishes', {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(props.CartDetails)
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.insertedId) {
+                    setWishSuccess(true);
+                }
+            });
+        console.log('wished added submitted')
     }
-    const handleLogin = () => {
-        navigate('/signIn')
-    }
+
     const goToMyCart = () => {
         navigate('/dashboard/myCarts')
     }
+    const goToMyWish = () => {
+        navigate('/dashboard/myWishlists')
+    }
     return (
         <div>
-            <Button onClick={handleAddToCartBtn}>Add to Cart</Button>
             {
-                success ? (<Button onClick={goToMyCart}>My Cart</Button>) : ''
+                success ? (<Button style={{ display: 'block', margin: '10px' }} variant="contained" size="large" onClick={goToMyCart}>Check Cart <ShoppingCartCheckoutIcon /></Button>) : ''
             }
-            <Button onClick={handleWish}>Add to Wish</Button>
+            <Button style={{ display: 'block', margin: '10px' }} variant="contained" size="large" onClick={handleAddToCartBtn}>Add to Cart</Button>
+            {
+                wishSuccess && <Alert onClose={handleClose} variant="filled" severity="success" sx={{ width: '100%' }}>
+                    wishes Added successfully!
+                </Alert>
+            }
+            {
+                wishSuccess ? (<Button style={{ display: 'block', margin: '10px' }} variant="contained" size="large" onClick={goToMyWish}>My Wish <CardGiftcardIcon /> </Button>) : ''
+            }
+            <Button style={{ display: 'block', margin: '10px' }} variant="contained" size="large" onClick={handleWish}>Add to Wish</Button>
             {/* modal's code  */}
             <Modal
                 aria-labelledby="transition-modal-title"

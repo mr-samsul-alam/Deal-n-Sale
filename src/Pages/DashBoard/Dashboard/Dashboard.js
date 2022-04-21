@@ -27,9 +27,10 @@ import {
     NavLink,
     useNavigate
 } from "react-router-dom";
-import { Avatar, Badge, Button, ButtonGroup, Menu, MenuItem } from '@mui/material'; 
+import { Avatar, Badge, Button, ButtonGroup, Menu, MenuItem } from '@mui/material';
 import UseMyCartsData from '../../../Hooks/UseMyCartsData';
 import UseAuth from '../../../FireBase/UseAuth';
+import UseWish from '../../../Hooks/UseWish';
 
 const drawerWidth = 250;
 
@@ -38,6 +39,7 @@ function Dashboard(props) {
     const { window } = props;
     const [mobileOpen, setMobileOpen] = React.useState(false);
     const { carts } = UseMyCartsData()
+    const { wishes } = UseWish()
     const { admin, user, logout } = UseAuth();
     const handleDrawerToggle = () => {
         setMobileOpen(!mobileOpen);
@@ -112,7 +114,7 @@ function Dashboard(props) {
                     style={{ textDecoration: 'none', display: "block" }}
                     to="/dashboard/myWishlists">
                     <Button variant="text" style={{ color: '#283442' }}>
-                        <Badge badgeContent={4} color="warning" style={{ margin: '15px' }}>
+                        <Badge badgeContent={wishes?.length} color="warning" style={{ margin: '15px' }}>
                             <FavoriteBorderOutlinedIcon color="action" />
                         </Badge>My WishList</Button>
                 </NavLink>

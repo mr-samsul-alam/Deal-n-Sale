@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { Alert, Button, ButtonGroup, Container, Grid, Rating, Skeleton, Typography } from '@mui/material'; 
-import LinearProgress from '@mui/material/LinearProgress'; 
+import { Alert, Button, ButtonGroup, Container, Grid, Rating, Skeleton, Typography } from '@mui/material';
+import LinearProgress from '@mui/material/LinearProgress';
 import NavigationBar from '../../Shared/NavigationBar/NavigationBar';
 import { addToDb } from '../../../Utilities/SavedToLocalStorage';
 import { Box } from '@mui/system';
@@ -10,10 +10,10 @@ import UseAuth from '../../../FireBase/UseAuth';
 const SingleProductDetails = () => {
     const [quantity, setQuantity] = useState(1);
 
-    const { user, products, progress, buffer} = UseAuth()
-    const { id } = useParams() 
+    const { user, products, progress, buffer } = UseAuth()
+    const { id } = useParams()
     //filtering product by getting product code  
-    const product = products.find(product => (product?.subCategory === id)); 
+    const product = products.find(product => (product?.subCategory === id));
 
     // initial price coming from db
     const [newPrice, setPrice] = useState(product?.price);
@@ -98,17 +98,15 @@ const SingleProductDetails = () => {
                             <Typography  >
                                 <Rating name="half-rating-read" style={{ color: '#D8C3A5' }} defaultValue={4} precision={0.5} readOnly />
                             </Typography>
-                            <Typography>
-                                {
-                                    newPrice ? <Typography>{newPrice}</Typography> : <Typography>{product?.price}</Typography>
-                                }
-
-                            </Typography>
-
                             <Typography  >
                                 {product?.description}
                             </Typography>
+                            <Typography>
+                                {
+                                    newPrice ? <Typography>${newPrice}</Typography> : <Typography> ${product?.price}</Typography>
+                                }
 
+                            </Typography>
                             <ButtonGroup variant="outlined" aria-label="outlined button group">
                                 <Button onClick={() => upDate("mynas", quantity)}>-</Button>
                                 <Button>{quantity}</Button>

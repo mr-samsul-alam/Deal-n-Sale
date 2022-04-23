@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import UseAuth from '../FireBase/UseAuth'; 
+import UseAuth from '../FireBase/UseAuth';
 
-const UseWish = () => { 
+const UseWish = () => {
     const { user } = UseAuth()
     const [wishes, setWishes] = useState([]);
     const [WishProgress, setProgress] = React.useState(20);

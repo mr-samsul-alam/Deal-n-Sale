@@ -7,10 +7,7 @@ import Fade from '@mui/material/Fade';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { Alert, Container, Snackbar } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
 import PrivateRoute from '../../AuthenticationPage/PrivateRoute/PrivateRoute';
-import ShoppingCartCheckoutIcon from '@mui/icons-material/ShoppingCartCheckout';
-import CardGiftcardIcon from '@mui/icons-material/CardGiftcard';
 
 const style = {
     position: 'absolute',
@@ -26,11 +23,8 @@ const style = {
 
 const AddToCart = (props) => {
     const [open, setOpen] = React.useState(false);
-    const [success, setSuccess] = React.useState(false);
-    const [wishSuccess, setWishSuccess] = React.useState(false);
-    const handleClose = () => setOpen(false);
+    const [wishModal, setWishModal] = React.useState(false);
     const { productName, productImg, quantity, price } = props?.CartDetails || []
-    const navigate = useNavigate()
 
     //Sending Data To Cart Details
     const handleAddToCart = () => {
@@ -45,20 +39,31 @@ const AddToCart = (props) => {
             .then(res => res.json())
             .then(data => {
                 if (data.insertedId) {
-                    setSuccess(true);
+                    props?.setSuccess(true);
                 }
             });
         console.log('submitted')
 
     }
+    const handleClose = () => setOpen(false);
+    const handleWishClose = () => setWishModal(false);
+
     const handleSuccessClose = () => {
-        setSuccess(false);
+        props?.setSuccess(false);
+    };
+    const handleWishesClose = () => {
+        props?.setWishSuccess(false);
     };
     const handleAddToCartBtn = () => {
         setOpen(true)
     }
+    const handleWishBtn = () => {
+        setWishModal(true)
+
+    }
     //Sending data to local storage
     const handleWish = () => {
+        setWishModal(false)
         fetch('http://localhost:5000/wishes', {
             method: 'POST',
             headers: {
@@ -69,33 +74,19 @@ const AddToCart = (props) => {
             .then(res => res.json())
             .then(data => {
                 if (data.insertedId) {
-                    setWishSuccess(true);
+                    props?.setWishSuccess(true);
                 }
             });
         console.log('wished added submitted')
     }
 
-    const goToMyCart = () => {
-        navigate('/dashboard/myCarts')
-    }
-    const goToMyWish = () => {
-        navigate('/dashboard/myWishlists')
-    }
+
     return (
         <div>
-            {
-                success ? (<Button style={{ display: 'block', margin: '10px' }} variant="contained" size="large" onClick={goToMyCart}>Check Cart <ShoppingCartCheckoutIcon /></Button>) : ''
-            }
-            <Button style={{ display: 'block', margin: '10px' }} variant="contained" size="large" onClick={handleAddToCartBtn}>Add to Cart</Button>
-            {
-                wishSuccess && <Alert onClose={handleClose} variant="filled" severity="success" sx={{ width: '100%' }}>
-                    wishes Added successfully!
-                </Alert>
-            }
-            {
-                wishSuccess ? (<Button style={{ display: 'block', margin: '10px' }} variant="contained" size="large" onClick={goToMyWish}>My Wish <CardGiftcardIcon /> </Button>) : ''
-            }
-            <Button style={{ display: 'block', margin: '10px' }} variant="contained" size="large" onClick={handleWish}>Add to Wish</Button>
+
+            <Button style={{ margin: '10px' }} variant="contained" size="large" onClick={handleAddToCartBtn}>Add to Cart</Button>
+
+            <Button style={{ margin: '10px' }} variant="contained" size="large" onClick={handleWishBtn}>Add to Wish</Button>
             {/* modal's code  */}
             <Modal
                 aria-labelledby="transition-modal-title"
@@ -126,9 +117,52 @@ const AddToCart = (props) => {
                             <Typography id="transition-modal-description"  >
                                 Net Price : $ {props?.newPrice}
                             </Typography>
-                            {
-                                <PrivateRoute><Button onClick={handleAddToCart} variant="contained">ok</Button></PrivateRoute>
-                            }
+                            <Typography>
+                                {
+                                    <PrivateRoute><Button onClick={handleAddToCart} variant="contained">Add</Button></PrivateRoute>
+                                }
+                            </Typography>
+
+
+                        </Container>
+                    </Box>
+                </Fade>
+            </Modal>
+            <Modal
+                aria-labelledby="transition-modal-title"
+                aria-describedby="transition-modal-description"
+                open={wishModal}
+                onClose={handleWishClose}
+                closeAfterTransition
+                BackdropComponent={Backdrop}
+                BackdropProps={{
+                    timeout: 500,
+                }}
+            >
+                <Fade in={wishModal}>
+                    <Box sx={style} >
+                        <Container style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                            <Typography id="transition-modal-title" variant="h6" component="h2" sx={{ mx: 1 }}>
+                                Add To Wish
+                            </Typography>
+                            <Typography id="transition-modal-description" sx={{ mt: 1 }}>
+                                <img src={productImg} width="50%" alt="" />
+                            </Typography>
+                            <Typography id="transition-modal-description"  >
+                                Product Name : {productName}
+                            </Typography>
+                            <Typography id="transition-modal-description"  >
+                                Product Quantity : {quantity}
+                            </Typography>
+                            <Typography id="transition-modal-description"  >
+                                Net Price : $ {props?.newPrice}
+                            </Typography>
+                            <Typography>
+                                {
+                                    <PrivateRoute><Button onClick={handleWish} variant="contained">Wish</Button></PrivateRoute>
+                                }
+                            </Typography>
+
 
                         </Container>
                     </Box>
@@ -139,13 +173,28 @@ const AddToCart = (props) => {
                     vertical: 'top',
                     horizontal: 'right',
                 }}
-                open={success}
+                open={props?.success}
                 autoHideDuration={6000}
                 onClose={handleSuccessClose}
                 style={{ marginTop: '80px', marginRight: '80px' }}
             >
                 <Alert onClose={handleClose} variant="filled" severity="success" sx={{ width: '100%' }}>
-                    Added Product successfully!
+                    Added <b>Cart</b> successfully!
+                </Alert>
+            </Snackbar>
+            <Snackbar
+                anchorOrigin={{
+                    vertical: 'top',
+                    horizontal: 'right',
+                }}
+                open={props?.wishSuccess}
+                autoHideDuration={6000}
+                onClose={handleWishesClose}
+                style={{ marginTop: '80px', marginRight: '80px' }}
+            >
+                <Alert onClose={handleClose} variant="filled" severity="success" sx={{ width: '100%' }}>
+
+                    Added <b>Wish</b> successfully!
                 </Alert>
             </Snackbar>
         </div>

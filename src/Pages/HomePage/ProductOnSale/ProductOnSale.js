@@ -1,12 +1,12 @@
 import React from 'react';
-import { Container, Grid, Typography } from '@mui/material';
-import ProductsOnSaleCard from '../ProductsOnSaleCard/ProductsOnSaleCard'; 
+import { Container, Grid, Typography } from '@mui/material'; 
 import UseAuth from '../../../FireBase/UseAuth';
+import ProductsCard from '../../Shared/ProductsCard/ProductsCard';
 
 
 const ProductOnSale = () => {
-    const { products } = UseAuth() 
-    const productSliced = products.slice(0, 3) 
+    const { products } = UseAuth()
+    const productSliced = products.slice(0, 3)
     return (
         <Container style={{ marginTop: '70px' }}>
             <Typography variant="div" style={{ textAlign: 'center', }}>
@@ -21,7 +21,7 @@ const ProductOnSale = () => {
 
             <Grid container spacing={2}>
                 {
-                    productSliced.map(product => <ProductsOnSaleCard key={product._id} product={product} ></ProductsOnSaleCard>)
+                    productSliced.map(product => <ProductsCard key={product._id} product={product} ></ProductsCard>)
                 }
             </Grid>
         </Container>

@@ -1,10 +1,10 @@
 import { Container, Grid, LinearProgress } from '@mui/material';
 import React from 'react';
 import UseAuth from '../../../FireBase/UseAuth'; 
-import ProductsOnSaleCard from '../../HomePage/ProductsOnSaleCard/ProductsOnSaleCard';
 import NavigationBar from '../../Shared/NavigationBar/NavigationBar';
+import ProductsCard from '../../Shared/ProductsCard/ProductsCard';
 
-const ExplorePage = () => { 
+const ExplorePage = () => {
     const { products, progress, buffer } = UseAuth()
     return (
         <>
@@ -13,7 +13,7 @@ const ExplorePage = () => {
             <Container>
                 <Grid container spacing={2}>
                     {
-                        products.map(product => <ProductsOnSaleCard key={product?._id} product={product} ></ProductsOnSaleCard>)
+                        products.map(product => <ProductsCard key={product?._id} product={product} ></ProductsCard>)
                     }
                 </Grid>
             </Container>

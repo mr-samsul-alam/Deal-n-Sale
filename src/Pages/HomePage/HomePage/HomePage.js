@@ -7,7 +7,6 @@ const HomePage = () => {
         <div>
             <Header></Header>
             <ProductOnSale></ProductOnSale>
-            <h1>This is Home page</h1>
         </div>
     );
 };

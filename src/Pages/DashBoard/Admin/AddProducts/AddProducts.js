@@ -45,16 +45,16 @@ const AddProducts = () => {
     }
 
     return (
-        <Container style={{ border: '2px solid  #FFE7D9',backgroundColor:'#FFFFFF' , paddingTop: '20px', paddingBottom: '30px' }}>
+        <Container style={{ border: '2px solid  #FFE7D9', backgroundColor: '#FFFFFF', paddingTop: '20px', paddingBottom: '30px' }}>
             <Typography variant='h4' style={{ textAlign: 'center', justifyContent: "center", padding: '10px' }}>
                 Add Product's
             </Typography>
             <Divider />
             <Divider />
-            <form onSubmit={handleBookingSubmit} style={{padding:'10px'}}>
+            <form onSubmit={handleBookingSubmit} style={{ padding: '10px' }}>
 
                 <TextField
-                   required
+                    required
                     sx={{ width: '96%', m: 1 }}
                     id="outlined-size-small"
                     name="mainPicture"
@@ -63,7 +63,7 @@ const AddProducts = () => {
                     size="small"
                 />
                 <TextField
-                   required
+                    required
                     sx={{ width: '31%', m: 1 }}
                     id="outlined-size-small"
                     name="picture2"
@@ -72,7 +72,7 @@ const AddProducts = () => {
                     size="small"
                 />
                 <TextField
-                   required
+                    required
                     sx={{ width: '31%', m: 1 }}
                     id="outlined-size-small"
                     name="picture3"
@@ -81,7 +81,7 @@ const AddProducts = () => {
                     size="small"
                 />
                 <TextField
-                   required
+                    required
                     sx={{ width: '31%', m: 1 }}
                     id="outlined-size-small"
                     name="picture4"
@@ -91,7 +91,7 @@ const AddProducts = () => {
                 />
 
                 <TextField
-                   required
+                    required
                     sx={{ width: '96%', m: 1 }}
                     id="outlined-size-small"
                     label="Products Name"
@@ -100,7 +100,7 @@ const AddProducts = () => {
                     size="small"
                 />
                 <TextField
-                   required
+                    required
                     sx={{ width: '31%', m: 1 }}
                     id="outlined-size-small"
                     label="Brand Name"
@@ -109,7 +109,7 @@ const AddProducts = () => {
                     size="small"
                 />
                 <TextField
-                   required
+                    required
                     sx={{ width: '31%', m: 1 }}
                     id="outlined-size-small"
                     label="Category"
@@ -118,7 +118,7 @@ const AddProducts = () => {
                     size="small"
                 />
                 <TextField
-                   required
+                    required
                     sx={{ width: '31%', m: 1 }}
                     id="outlined-size-small"
                     label="Sub Category"
@@ -127,7 +127,7 @@ const AddProducts = () => {
                     size="small"
                 />
                 <TextField
-                   required
+                    required
                     sx={{ width: '31%', m: 1 }}
                     id="outlined-size-small"
                     label="Product Id By Category"
@@ -136,7 +136,7 @@ const AddProducts = () => {
                     size="small"
                 />
                 <TextField
-                   required
+                    required
                     sx={{ width: '31%', m: 1 }}
                     id="outlined-size-small"
                     label="Product Code"
@@ -145,7 +145,7 @@ const AddProducts = () => {
                     size="small"
                 />
                 <TextField
-                   required
+                    required
                     type="number"
                     sx={{ width: '31%', m: 1 }}
                     id="outlined-size-small"
@@ -155,17 +155,17 @@ const AddProducts = () => {
                     size="small"
                 />
                 <TextField
-                   required
+                    required
                     type="number"
                     sx={{ width: '47%', m: 1 }}
                     id="outlined-size-small"
-                    name="quantity"
+                    name="pd_quantity"
                     label=" Product Quantity"
                     onBlur={handleOnBlur}
                     size="small"
                 />
                 <TextField
-                   required
+                    required
                     type="number"
                     sx={{ width: '47%', m: 1 }}
                     id="outlined-size-small"
@@ -175,7 +175,7 @@ const AddProducts = () => {
                     size="small"
                 />
                 <TextField
-                   required
+                    required
                     sx={{ width: '96%', m: 1 }}
                     id="outlined-size-small"
                     label="Description"

@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js';
 import { Button, CircularProgress, Container } from '@mui/material';
-const CheckoutForm = ({ pendingPayment }) => {
+import UseAuth from '../../../../FireBase/UseAuth';
+const CheckoutForm = ({ payments }) => {
     const [error, setError] = useState('');
     const [success, setSuccess] = useState('');
     const [processing, setProcessing] = useState(false);
     const stripe = useStripe();
     const elements = useElements();
-
-    const { totalPrice } = pendingPayment[0]
-    console.log(typeof parseInt(totalPrice))
+    const { user } = UseAuth()
+    const { totalPrice, _id } = payments
     const price = parseInt(totalPrice)
     const [clientSecret, setClientSecret] = useState('');
     useEffect(() => {
@@ -53,8 +53,8 @@ const CheckoutForm = ({ pendingPayment }) => {
                 payment_method: {
                     card: card,
                     billing_details: {
-                        name: "samsul Alam",
-                        email: "contactsamsulalam@gmail.com"
+                        name: `${user?.displayName}`,
+                        email: `${user?.email}`
                     },
                 },
             },
@@ -77,22 +77,22 @@ const CheckoutForm = ({ pendingPayment }) => {
                 transaction: paymentIntent.client_secret.slice('_secret')[0]
             }
             console.log(payment)
-            // const url = `http://localhost:5000/appointments/${_id}`;
-            // fetch(url, {
-            //     method: 'PUT',
-            //     headers: {
-            //         'content-type': 'application/json'
-            //     },
-            //     body: JSON.stringify(payment)
-            // })
-            //     .then(res => res.json())
-            //     .then(data => console.log(data));
+            const url = `http://localhost:5000/payments/${_id}`;
+            fetch(url, {
+                method: 'PUT',
+                headers: {
+                    'content-type': 'application/json'
+                },
+                body: JSON.stringify(payment)
+            })
+                .then(res => res.json())
+                .then(data => console.log(data));
         }
 
     }
     return (
         <Container  >
-            <form onSubmit={handleSubmit} style={{textAlign:'center',marginTop:'20px',}}>
+            <form onSubmit={handleSubmit} style={{ textAlign: 'center', marginTop: '20px', }}>
                 <CardElement
                     options={{
                         style: {

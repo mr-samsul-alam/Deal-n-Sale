@@ -120,26 +120,26 @@ function Dashboard(props) {
                 </NavLink>
                 <NavLink
                     style={{ textDecoration: 'none', display: "block" }}
-                    to="/dashboard/myOrders">
-                    <Button variant="text" style={{ color: '#283442' }}> <ShoppingBagOutlinedIcon style={{ margin: '15px' }} /> My Order</Button>
+                    to="/dashboard/myPayments">
+                    <Button variant="text" style={{ color: '#283442' }} > <PaymentOutlinedIcon style={{ margin: '15px' }} /> My Payments</Button>
                 </NavLink>
                 <NavLink
                     style={{ textDecoration: 'none', display: "block" }}
-                    to="/dashboard/myPayments">
-                    <Button variant="text" style={{ color: '#283442' }} > <PaymentOutlinedIcon style={{ margin: '15px' }} /> My Payments</Button>
+                    to="/dashboard/myOrders">
+                    <Button variant="text" style={{ color: '#283442' }}> <ShoppingBagOutlinedIcon style={{ margin: '15px' }} /> My Order</Button>
                 </NavLink>
                 <NavLink
                     style={{ textDecoration: 'none', display: "block" }}
                     to="/dashboard/myAccount">
                     <Button variant="text" style={{ color: '#283442' }}  > <AccountCircleOutlinedIcon style={{ margin: '15px' }} />MY Account</Button>
                 </NavLink>
+                <NavLink
+                    style={{ textDecoration: 'none', display: "block" }}
+                    to="/dashboard/giveReviews">
+                    <Button variant="text" style={{ color: '#283442' }}  > <AccountCircleOutlinedIcon style={{ margin: '15px' }} />Give Review</Button>
+                </NavLink>
                 <Divider></Divider>
                 {admin && <Box>
-                    <NavLink
-                        style={{ textDecoration: 'none', display: "block" }}
-                        to="/dashboard/makeAdmin">
-                        <Button variant="text" style={{ color: '#283442' }} > <PersonAddAltIcon style={{ margin: '15px' }} /> Make Admin</Button>
-                    </NavLink>
                     <NavLink
                         style={{ textDecoration: 'none', display: "block" }}
                         to="/dashboard/addProducts">
@@ -147,20 +147,15 @@ function Dashboard(props) {
                     </NavLink>
                     <NavLink
                         style={{ textDecoration: 'none', display: "block" }}
-                        to="/dashboard/addProducts">
-                        <Button variant="text" style={{ color: '#283442' }} > <AddBoxIcon style={{ margin: '15px' }} />ManegeOrder</Button>
+                        to="/dashboard/manageOrder">
+                        <Button variant="text" style={{ color: '#283442' }} > <AddBoxIcon style={{ margin: '15px' }} />Manege Order</Button>
                     </NavLink>
                 </Box>}
                 {superAdmin && <Box>
                     <NavLink
                         style={{ textDecoration: 'none', display: "block" }}
-                        to="/dashboard/makeAdmin">
-                        <Button variant="text" style={{ color: '#283442' }} > <PersonAddAltIcon style={{ margin: '15px' }} />Manage Order</Button>
-                    </NavLink>
-                    <NavLink
-                        style={{ textDecoration: 'none', display: "block" }}
-                        to="/dashboard/addProducts">
-                        <Button variant="text" style={{ color: '#283442' }} > <AddBoxIcon style={{ margin: '15px' }} />Add Products</Button>
+                        to="/dashboard/admins">
+                        <Button variant="text" style={{ color: '#283442' }} > <PersonAddAltIcon style={{ margin: '15px' }} /> Manage Admins</Button>
                     </NavLink>
                 </Box>}
                 <Button variant="text" onClick={handleLogOut} > <LogoutIcon style={{ margin: '15px' }} />Sign Out</Button>

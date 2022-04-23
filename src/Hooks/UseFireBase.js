@@ -10,9 +10,7 @@ InitializeAuthentication()
 const UseFireBase = () => {
     const [user, setUser] = useState({});
     const [isLoading, setIsLoading] = useState(true);
-    const [authError, setAuthError] = useState('');
-    const [admin, setAdmin] = useState(false);
-    const [superAdmin, setSuperAdmin] = useState(false);
+    const [authError, setAuthError] = useState(''); 
     let navigate = useNavigate();
 
     const auth = getAuth();
@@ -74,21 +72,19 @@ const UseFireBase = () => {
             .finally(() => setIsLoading(false));
     }
 
-    useEffect(() => {
-        fetch(`http://localhost:5000/admin/${user.email}`)
-            .then(res => res.json())
-            .then(data => setAdmin(data.admin))
-    }, [user.email])
 
-    useEffect(() => {
-        const checkSuperAdmin = user?.email === 'contactsamsulalam@gmail.com'
-        if (checkSuperAdmin) {
-            setSuperAdmin(true)
-        }
+    // useEffect(() => {
+    //     if (adminData.length !== 0) {
+    //         setAdmin(true)
+    //     }
+    //     else {
+    //         setAdmin(false)
+    //     }
+    // }, [adminData])
 
-    }, [user.email])
-    console.log(admin);
-    console.log(superAdmin);
+
+
+
     // this is using for Log Out
     const logout = () => {
         setIsLoading(true);
@@ -124,9 +120,12 @@ const UseFireBase = () => {
         });
         return () => unsubscribed;
     }, [auth])
+    const admin = true;
+    const superAdmin = true;
+
     return {
         user,
-        superAdmin,
+        superAdmin, 
         signUsingGoogle,
         registerUser,
         admin,

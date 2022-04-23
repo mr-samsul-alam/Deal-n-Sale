@@ -1,6 +1,6 @@
 import { CircularProgress } from '@mui/material';
 import React from 'react';
-import { Navigate, useLocation } from 'react-router-dom'; 
+import { Navigate, useLocation } from 'react-router-dom';
 import UseAuth from '../../../FireBase/UseAuth';
 
 const PrivateRoute = ({ children, ...rest }) => {

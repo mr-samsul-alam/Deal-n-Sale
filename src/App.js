@@ -23,9 +23,12 @@ import MyOrder from './Pages/DashBoard/G_User/MyOrder/MyOrder';
 import Payment from './Pages/DashBoard/G_User/Payment/Payment';
 import Inbox from './Pages/DashBoard/G_User/Inbox/Inbox';
 import MyAccount from './Pages/DashBoard/G_User/MyAccount/MyAccount';
-import MakeAdmin from './Pages/DashBoard/Admin/MakeAdmin/MakeAdmin';
 import AuthProvider from './Context/AuthProvider';
 import ProductsProvider from './Context/ProductsProvider';
+import NotFound from './NotFound/NotFound';
+import ManageAdmin from './Pages/DashBoard/Admin/ManageAdmin/ManageAdmin';
+import GiveReviews from './Pages/DashBoard/G_User/GiveReviews/GiveReviews';
+import ManageOrders from './Pages/DashBoard/Admin/ManageOrders/ManageOrders';
 
 
 function App() {
@@ -41,13 +44,13 @@ function App() {
               <Route path="/dashboard" element={<PrivateRoute><Dashboard /></PrivateRoute>}>
                 <Route exact path="/dashboard" element={<DashboardHome></DashboardHome>}></Route>
                 <Route exact path="/dashboard/myCarts" element={<MyCart></MyCart>}></Route>
-                <Route exact path="/dashboard/myAccount" element={<MyAccount></MyAccount>}></Route>
                 <Route exact path="/dashboard/myWishlists" element={<MyWishLists></MyWishLists>}></Route>
-                <Route exact path="/dashboard/myOrders" element={<MyOrder></MyOrder>}></Route>
                 <Route exact path="/dashboard/myPayments" element={<Payment></Payment>}></Route>
-                <Route exact path="/dashboard/inbox" element={<Inbox></Inbox>}></Route>
-                <Route exact path="/dashboard/inbox" element={<Inbox></Inbox>}></Route>
-                <Route path={`/dashboard/makeAdmin`} element={<AdminRoute> <MakeAdmin></MakeAdmin> </AdminRoute>}></Route>
+                <Route exact path="/dashboard/myOrders" element={<MyOrder></MyOrder>}></Route>
+                <Route exact path="/dashboard/myAccount" element={<MyAccount></MyAccount>}></Route>
+                <Route exact path="/dashboard/giveReviews" element={<GiveReviews></GiveReviews>}></Route>
+                <Route path={`/dashboard/manageOrder`} element={<AdminRoute> <ManageOrders></ManageOrders> </AdminRoute>}></Route>
+                <Route path={`/dashboard/admins`} element={<AdminRoute> <ManageAdmin></ManageAdmin> </AdminRoute>}></Route>
                 <Route path={`/dashboard/addProducts`} element={<AdminRoute><AddProducts></AddProducts></AdminRoute>}>
                 </Route>
               </Route>
@@ -65,6 +68,7 @@ function App() {
               </Route>
               <Route exact path="/" element={<HomePage />}>
               </Route>
+              <Route path='*' element={<NotFound />} />
             </Routes>
             <Footer></Footer>
           </ProductsProvider>

@@ -1,5 +1,6 @@
 import { Button, TableCell, TableRow, TextField } from '@mui/material';
 import React from 'react';
+import UseProductsData from '../../../Shared/Shared/UseProductsData';
 
 const MyWishListTable = ({ row, wish, setWish }) => {
     const deleteCart = (id) => {
@@ -21,6 +22,7 @@ const MyWishListTable = ({ row, wish, setWish }) => {
             });
 
     }
+     
     return (
         <TableRow key={row?._id}>
             <TableCell width="150px" ><img width="100%" src={row?.productImg} alt="" /></TableCell>

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-const UseProductsData = () => {
+const GetProductData = () => {
     const [products, setProducts] = useState([]);
     const [progress, setProgress] = React.useState(20);
     const [buffer, setBuffer] = React.useState(30);
@@ -18,4 +18,4 @@ const UseProductsData = () => {
     return { products, progress, buffer }
 };
 
-export default UseProductsData;
+export default GetProductData;

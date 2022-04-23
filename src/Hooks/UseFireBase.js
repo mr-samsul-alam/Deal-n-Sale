@@ -11,7 +11,8 @@ const UseFireBase = () => {
     const [user, setUser] = useState({});
     const [isLoading, setIsLoading] = useState(true);
     const [authError, setAuthError] = useState('');
-    // const [admin, setAdmin] = useState(false);
+    const [admin, setAdmin] = useState(false);
+    const [superAdmin, setSuperAdmin] = useState(false);
     let navigate = useNavigate();
 
     const auth = getAuth();
@@ -73,12 +74,21 @@ const UseFireBase = () => {
             .finally(() => setIsLoading(false));
     }
 
-    // useEffect(() => {
-    //     fetch(`https://mighty-woodland-10467.herokuapp.com/users/${user.email}`)
-    //         .then(res => res.json())
-    //         .then(data => setAdmin(data.admin))
-    // }, [user.email])
+    useEffect(() => {
+        fetch(`http://localhost:5000/admin/${user.email}`)
+            .then(res => res.json())
+            .then(data => setAdmin(data.admin))
+    }, [user.email])
 
+    useEffect(() => {
+        const checkSuperAdmin = user?.email === 'contactsamsulalam@gmail.com'
+        if (checkSuperAdmin) {
+            setSuperAdmin(true)
+        }
+
+    }, [user.email])
+    console.log(admin);
+    console.log(superAdmin);
     // this is using for Log Out
     const logout = () => {
         setIsLoading(true);
@@ -114,9 +124,9 @@ const UseFireBase = () => {
         });
         return () => unsubscribed;
     }, [auth])
-    const admin = true;
     return {
         user,
+        superAdmin,
         signUsingGoogle,
         registerUser,
         admin,

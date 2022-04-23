@@ -1,11 +1,12 @@
 import React from 'react';
-import { Container, Grid, Typography } from '@mui/material'; 
+import { Container, Grid, Typography } from '@mui/material';
 import UseAuth from '../../../FireBase/UseAuth';
 import ProductsCard from '../../Shared/ProductsCard/ProductsCard';
+import UseProductsData from '../../Shared/Shared/UseProductsData';
 
 
 const ProductOnSale = () => {
-    const { products } = UseAuth()
+    const { products } = UseProductsData()
     const productSliced = products.slice(0, 3)
     return (
         <Container style={{ marginTop: '70px' }}>

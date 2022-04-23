@@ -25,6 +25,7 @@ import Inbox from './Pages/DashBoard/G_User/Inbox/Inbox';
 import MyAccount from './Pages/DashBoard/G_User/MyAccount/MyAccount';
 import MakeAdmin from './Pages/DashBoard/Admin/MakeAdmin/MakeAdmin';
 import AuthProvider from './Context/AuthProvider';
+import ProductsProvider from './Context/ProductsProvider';
 
 
 function App() {
@@ -32,40 +33,42 @@ function App() {
     <div className="App">
       <Router>
         <AuthProvider>
-        <Routes>
-          <Route path="/about" element={<PrivateRoute><AboutPage /></PrivateRoute>}>
-          </Route>
+          <ProductsProvider>
+            <Routes>
+              <Route path="/about" element={<PrivateRoute><AboutPage /></PrivateRoute>}>
+              </Route>
 
-          <Route path="/dashboard" element={<PrivateRoute><Dashboard /></PrivateRoute>}>
-            <Route exact path="/dashboard" element={<DashboardHome></DashboardHome>}></Route>
-            <Route exact path="/dashboard/myCarts" element={<MyCart></MyCart>}></Route>
-            <Route exact path="/dashboard/myAccount" element={<MyAccount></MyAccount>}></Route>
-            <Route exact path="/dashboard/myWishlists" element={<MyWishLists></MyWishLists>}></Route>
-            <Route exact path="/dashboard/myOrders" element={<MyOrder></MyOrder>}></Route>
-            <Route exact path="/dashboard/myPayments" element={<Payment></Payment>}></Route>
-            <Route exact path="/dashboard/inbox" element={<Inbox></Inbox>}></Route>
-            <Route exact path="/dashboard/inbox" element={<Inbox></Inbox>}></Route>
-            <Route path={`/dashboard/makeAdmin`} element={<AdminRoute> <MakeAdmin></MakeAdmin> </AdminRoute>}></Route>
-            <Route path={`/dashboard/addProducts`} element={<AdminRoute><AddProducts></AddProducts></AdminRoute>}>
-            </Route>
-          </Route>
+              <Route path="/dashboard" element={<PrivateRoute><Dashboard /></PrivateRoute>}>
+                <Route exact path="/dashboard" element={<DashboardHome></DashboardHome>}></Route>
+                <Route exact path="/dashboard/myCarts" element={<MyCart></MyCart>}></Route>
+                <Route exact path="/dashboard/myAccount" element={<MyAccount></MyAccount>}></Route>
+                <Route exact path="/dashboard/myWishlists" element={<MyWishLists></MyWishLists>}></Route>
+                <Route exact path="/dashboard/myOrders" element={<MyOrder></MyOrder>}></Route>
+                <Route exact path="/dashboard/myPayments" element={<Payment></Payment>}></Route>
+                <Route exact path="/dashboard/inbox" element={<Inbox></Inbox>}></Route>
+                <Route exact path="/dashboard/inbox" element={<Inbox></Inbox>}></Route>
+                <Route path={`/dashboard/makeAdmin`} element={<AdminRoute> <MakeAdmin></MakeAdmin> </AdminRoute>}></Route>
+                <Route path={`/dashboard/addProducts`} element={<AdminRoute><AddProducts></AddProducts></AdminRoute>}>
+                </Route>
+              </Route>
 
 
-          <Route path="/home" element={<HomePage />}>
-          </Route>
-          <Route path="/explore" element={<ExplorePage />}>
-          </Route>
-          <Route path="/product/:id" element={<SingleProductDetails />}>
-          </Route>
-          <Route path="/signIn" element={<SignIn />}>
-          </Route>
-          <Route path="/signUp" element={<SignUp />}>
-          </Route>
-          <Route exact path="/" element={<HomePage />}>
-          </Route>
-        </Routes>
-        <Footer></Footer>
-        </AuthProvider> 
+              <Route path="/home" element={<HomePage />}>
+              </Route>
+              <Route path="/explore" element={<ExplorePage />}>
+              </Route>
+              <Route path="/product/:id" element={<SingleProductDetails />}>
+              </Route>
+              <Route path="/signIn" element={<SignIn />}>
+              </Route>
+              <Route path="/signUp" element={<SignUp />}>
+              </Route>
+              <Route exact path="/" element={<HomePage />}>
+              </Route>
+            </Routes>
+            <Footer></Footer>
+          </ProductsProvider>
+        </AuthProvider>
       </Router>
     </div>
   );

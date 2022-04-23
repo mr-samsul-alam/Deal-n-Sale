@@ -3,11 +3,11 @@ import React, { useState } from 'react';
 
 const MyCartTable = ({ row, cart, setCart }) => {
     const [quantity, setQuantity] = useState(parseFloat(row?.quantity));
-    console.log(row)
-    const deleteCart = (productCode) => {
+ 
+    const deleteCart = (id) => {
         alert('R u Sure U wanna Delete')
-        console.log(productCode);
-        const url = `http://localhost:5000/cart/${productCode}`
+        console.log(id);
+        const url = `http://localhost:5000/cart/${id}`
         console.log(url);
         fetch(url, {
             method: 'DELETE'
@@ -17,7 +17,7 @@ const MyCartTable = ({ row, cart, setCart }) => {
                 console.log(data.deletedCount)
                 if (data.deletedCount > 0) {
                     alert('Deleted successfully');
-                    const remainingUsers = cart.filter(user => user.productCode !== productCode);
+                    const remainingUsers = cart.filter(user => user._id !== id);
                     setCart(remainingUsers);
                 }
             });
@@ -66,7 +66,7 @@ const MyCartTable = ({ row, cart, setCart }) => {
 
             <TableCell align="center">{row?.paymentStatus}</TableCell>
             <TableCell align="center"> <Button
-                onClick={() => deleteCart(row?.productCode)} >Delete</Button> </TableCell>
+                onClick={() => deleteCart(row?._id)} >Delete</Button> </TableCell>
             {/* <TableCell align="right">{ccyFormat(row?.price)}</TableCell> */}
         </TableRow>
     );

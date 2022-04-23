@@ -9,11 +9,14 @@ import AddToCart from '../AddToCart/AddToCart';
 import UseAuth from '../../../FireBase/UseAuth';
 import ShoppingCartCheckoutIcon from '@mui/icons-material/ShoppingCartCheckout';
 import CardGiftcardIcon from '@mui/icons-material/CardGiftcard';
+import Suggestions from '../Suggestions/Suggestions';
+import UseProductsData from '../../Shared/Shared/UseProductsData';
 const SingleProductDetails = () => {
     const [quantity, setQuantity] = useState(1);
     const [success, setSuccess] = React.useState(false);
     const [wishSuccess, setWishSuccess] = React.useState(false);
-    const { user, products, progress, buffer } = UseAuth()
+    const { user } = UseAuth()
+    const { products, progress, buffer } = UseProductsData()
     const { id } = useParams()
     //filtering product by getting product code  
     const product = products.find(product => (product?.id_by_category === id));
@@ -72,13 +75,15 @@ const SingleProductDetails = () => {
     const handleClick = (link) => {
         setPicture(link)
     }
+    const category = product?.category;
+
     return (
         <div>
             <NavigationBar></NavigationBar>
             <LinearProgress variant="buffer" value={progress} valueBuffer={buffer} />
             <Container>
                 {
-                    product ? (<Grid container spacing={2} style={{ margin: '2px solid red', marginTop: '50px' }}>
+                    product ? (<Grid container spacing={2} style={{ margin: '2px solid red', marginTop: '50px', marginBottom: '50px' }}>
                         <Grid item xs={12} md={6}>
                             <Box style={{ display: 'flex', justifyContent: 'center' }}>
                                 <Paper elevation={24} variant='elevation' style={{ display: 'flex', justifyContent: 'center', width: '300px', marginTop: '50px', marginBottom: '50px' }}>
@@ -155,6 +160,7 @@ const SingleProductDetails = () => {
                         </Grid>
                     </Grid>)
                 }
+                <Suggestions category={category} products={products} id={id}></Suggestions>
             </Container>
 
         </div>

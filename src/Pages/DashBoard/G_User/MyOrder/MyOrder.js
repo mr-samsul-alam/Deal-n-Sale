@@ -41,15 +41,17 @@ const MyOrder = () => {
                         margin: '20px',
                         padding: '20px'
                     }}
-                    sx={{ width: '100%' }}
                 >
 
-                    <div style={{ display: 'flex', justifyContent: 'center' }}>
-                        <div>
+                    <Box style={{ display: 'flex', justifyContent: 'center', }}>
+                        <Box >
                             <p>Name:{order?.name}</p>
                             <p>Email:{order?.email}</p>
-                        </div>
-                        <Button onClick={handleOpen}>Details</Button>
+                        </Box>
+                        <Box>
+                            <Button variant='contained' onClick={handleOpen}>Details</Button>
+                        </Box>
+
                         <Modal
                             aria-labelledby="transition-modal-title"
                             aria-describedby="transition-modal-description"
@@ -67,17 +69,17 @@ const MyOrder = () => {
                                         (order?.carts).map(cart => <Box>
                                             <img src={cart?.productImg} width='50%' alt="" />
                                             <Typography id="transition-modal-title" variant="h6" component="h2">
-                                                Products Name:<b>{cart?.productName}</b> Quantity : <b>{cart?.quantity}</b>
+                                                Products Name:<b>{cart?.productName}</b>
+                                            </Typography>
+                                            <Typography id="transition-modal-title" variant="h6" component="h2">
+                                                Quantity : <b>{cart?.quantity}</b>
                                             </Typography>
                                         </Box>)
                                     }
                                 </Box>
                             </Fade>
                         </Modal>
-
-
-
-                    </div>
+                    </Box>
                     <Stepper activeStep={order?.activeStatus} alternativeLabel>
                         {steps.map((label) => (
                             <Step key={label}>

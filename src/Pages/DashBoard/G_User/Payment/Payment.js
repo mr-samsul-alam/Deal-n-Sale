@@ -19,7 +19,7 @@ const Payment = () => {
             .then(res => res.json())
             .then(data => setPendingPayment(data))
     }, [user?.email])
- 
+
     return (
         <Container>
             <Typography variant='h3' style={{ textAlign: "center", marginTop: '20px' }}>
@@ -38,7 +38,7 @@ const Payment = () => {
                                             height="100"
                                             image={cart?.productImg}
                                             alt="green iguana"
-                                            style={{ border: '2px solid red' }}
+                                            style={{ border: '2px solid #F89800' }}
                                         />
                                         <CardContent>
                                             <Typography style={{ display: "flex", justifyContent: 'center', }}>
@@ -57,6 +57,9 @@ const Payment = () => {
                                 </Typography>
                                 <Typography style={{ display: "flex", justifyContent: 'center', }}>
                                     Email: <b> {payments?.email}</b>
+                                </Typography>
+                                <Typography style={{ display: "flex", justifyContent: 'center', }}>
+                                    Email: <b> {payments?.pd_quantity}</b>
                                 </Typography>
                                 <Typography style={{ display: "flex", justifyContent: 'center', }}>
                                     Total:<b> $ {payments?.totalPrice}</b>

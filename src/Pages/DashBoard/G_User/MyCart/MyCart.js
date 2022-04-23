@@ -24,8 +24,7 @@ const MyCart = () => {
     }, [carts])
 
 
-
-
+ 
     const gdTotal = cart?.reduce((acc, item) => acc + item.quantity * item.price, 0).toFixed(2)
 
     // making object for sending db
@@ -97,21 +96,21 @@ const MyCart = () => {
                                 {cart.map((row) => <MyCartTable key={row?._id} row={row} setCart={setCart} cart={cart}></MyCartTable>)}
                                 <TableRow>
                                     <TableCell />
-                                    <TableCell align="center" >Subtotal = {gdTotal} </TableCell>
+                                    <TableCell align="center" >Subtotal = $ {gdTotal} </TableCell>
                                 </TableRow>
                                 <TableRow>
                                     <TableCell />
-                                    <TableCell align="center">Tax 10% = {((gdTotal / 100) * 10)}</TableCell>
+                                    <TableCell align="center">Tax 10% = $ {((gdTotal / 100) * 10)}</TableCell>
                                 </TableRow>
                                 <TableRow>
                                     <TableCell />
-                                    <TableCell align="center">Total = {((gdTotal / 100) * 10) + parseFloat(gdTotal)}</TableCell>
+                                    <TableCell align="center">Total = $ {((gdTotal / 100) * 10) + parseFloat(gdTotal)}</TableCell>
                                     {/* <TableCell colSpan={2}>Total = {row?.price}</TableCell> */}
                                     {/* <TableCell align="right">{ccyFormat(invoiceTotal)}</TableCell> */}
                                 </TableRow>
                             </TableBody>
                         </Table>
-                        <Button onClick={handlePayments} >Complete PayMent</Button>
+                        <Button variant='contained' onClick={handlePayments} >Complete PayMent</Button>
                     </TableContainer>
                 </div>)
             }

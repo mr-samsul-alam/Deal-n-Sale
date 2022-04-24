@@ -14,7 +14,7 @@ const style = {
     p: 4,
 };
 
-const steps = [
+const steps = [ 
     'payment Done',
     'Order On packaging',
     'Order On Ship',
@@ -35,10 +35,9 @@ const MyOrder = () => {
         <>
             <Container>
                 <h1 style={{ textAlign: 'center' }} >Order's Update Page</h1>
-                {orders.length === 0 ? (<h1 style={{ textAlign: 'center' }} >Sir u do not have any order</h1>) : (orders.map(order => <Box
+                {orders.length === 0 ? (<h1 style={{ textAlign: 'center' }} >Sir u do not have any order</h1>) : (orders.map(order => order.payment !== 'pending' && (<Box
                     style={{
-                        border: "2px solid blue",
-                        margin: '20px',
+                        border: "2px solid blue", 
                         padding: '20px'
                     }}
                 >
@@ -80,7 +79,7 @@ const MyOrder = () => {
                             </Fade>
                         </Modal>
                     </Box>
-                    <Stepper activeStep={order?.activeStatus} alternativeLabel>
+                    <Stepper activeStep={order?.activeStatus} alternativeLabel >
                         {steps.map((label) => (
                             <Step key={label}>
                                 <StepLabel>{label}</StepLabel>
@@ -89,7 +88,7 @@ const MyOrder = () => {
 
                     </Stepper>
 
-                </Box>))}
+                </Box>)))}
 
             </Container>
         </>

@@ -8,9 +8,12 @@ import InitializeAuthentication from "../FireBase/FireBaseInit";
 InitializeAuthentication()
 
 const UseFireBase = () => {
+    const [adminData, setAdminData] = useState({})
+    const [adminStatus, setAdminStatus] = useState(false)
+    const [adminSuperStatus, setSuperAdminStatus] = useState(false)
     const [user, setUser] = useState({});
     const [isLoading, setIsLoading] = useState(true);
-    const [authError, setAuthError] = useState(''); 
+    const [authError, setAuthError] = useState('');
     let navigate = useNavigate();
 
     const auth = getAuth();
@@ -26,7 +29,7 @@ const UseFireBase = () => {
                 setAuthError('');
                 const user = result.user
                 setUser(user);
-                saveUser(user?.email, user?.displayName, user?.photoURL, "undi", 'PUT')
+                saveUser(user?.email, user?.displayName, user?.photoURL, "no number added", 'PUT')
             }).catch((error) => {
                 setAuthError(error.message);
             })
@@ -42,7 +45,7 @@ const UseFireBase = () => {
                 const newUser = { email, displayName: name }
                 setUser(newUser);
                 //save user to the database
-                saveUser(email, name, "undi", phnNumber, 'POST');
+                saveUser(email, name, "no photo", phnNumber, 'POST');
                 //send name to firebase after creation
                 updateProfile(auth.currentUser, {
                     displayName: name
@@ -73,14 +76,23 @@ const UseFireBase = () => {
     }
 
 
-    // useEffect(() => {
-    //     if (adminData.length !== 0) {
-    //         setAdmin(true)
-    //     }
-    //     else {
-    //         setAdmin(false)
-    //     }
-    // }, [adminData])
+    useEffect(() => {
+        fetch(`http://localhost:5000/admin/${user?.email}`)
+            .then(res => res.json())
+            .then(data => setAdminData(data))
+    }, [user?.email])
+
+    useEffect(() => {
+        if (adminData === null) {
+            setAdminStatus(false)
+        }
+        else {
+            setAdminStatus(true)
+            if (adminData?.role === 'superAdmin') {
+                setSuperAdminStatus(true)
+            }
+        }
+    }, [adminData])
 
 
 
@@ -119,16 +131,13 @@ const UseFireBase = () => {
             setIsLoading(false);
         });
         return () => unsubscribed;
-    }, [auth])
-    const admin = true;
-    const superAdmin = true;
-
+    }, [auth])  
     return {
         user,
-        superAdmin, 
+        adminSuperStatus,
         signUsingGoogle,
         registerUser,
-        admin,
+        adminStatus,
         logout,
         loginUser,
         isLoading,

@@ -40,7 +40,7 @@ function Dashboard(props) {
     const [mobileOpen, setMobileOpen] = React.useState(false);
     const { carts } = UseMyCartsData()
     const { wishes } = UseWish()
-    const { admin, superAdmin, user, logout } = UseAuth();
+    const { adminStatus, adminSuperStatus, user, logout } = UseAuth();
     const handleDrawerToggle = () => {
         setMobileOpen(!mobileOpen);
     };
@@ -139,7 +139,7 @@ function Dashboard(props) {
                     <Button variant="text" style={{ color: '#283442' }}  > <AccountCircleOutlinedIcon style={{ margin: '15px' }} />Give Review</Button>
                 </NavLink>
                 <Divider></Divider>
-                {admin && <Box>
+                {adminStatus && <Box>
                     <NavLink
                         style={{ textDecoration: 'none', display: "block" }}
                         to="/dashboard/addProducts">
@@ -151,7 +151,7 @@ function Dashboard(props) {
                         <Button variant="text" style={{ color: '#283442' }} > <AddBoxIcon style={{ margin: '15px' }} />Manege Order</Button>
                     </NavLink>
                 </Box>}
-                {superAdmin && <Box>
+                {adminStatus && <Box>
                     <NavLink
                         style={{ textDecoration: 'none', display: "block" }}
                         to="/dashboard/admins">

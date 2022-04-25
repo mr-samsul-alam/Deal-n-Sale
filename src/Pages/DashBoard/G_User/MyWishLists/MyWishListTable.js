@@ -6,7 +6,7 @@ const MyWishListTable = ({ row, wish, setWish }) => {
     const deleteCart = (id) => {
         alert('R u Sure U wanna Delete')
         console.log(id);
-        const url = `http://localhost:5000/wishes/${id}`
+        const url = `https://sleepy-dawn-01844.herokuapp.com/wishes/${id}`
         console.log(url);
         fetch(url, {
             method: 'DELETE'
@@ -22,7 +22,7 @@ const MyWishListTable = ({ row, wish, setWish }) => {
             });
 
     }
-     
+
     return (
         <TableRow key={row?._id}>
             <TableCell width="150px" ><img width="100%" src={row?.productImg} alt="" /></TableCell>

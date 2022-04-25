@@ -29,7 +29,7 @@ const AddToCart = (props) => {
     //Sending Data To Cart Details
     const handleAddToCart = () => {
         setOpen(false)
-        fetch('http://localhost:5000/carts', {
+        fetch('https://sleepy-dawn-01844.herokuapp.com/carts', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'
@@ -64,7 +64,7 @@ const AddToCart = (props) => {
     //Sending data to local storage
     const handleWish = () => {
         setWishModal(false)
-        fetch('http://localhost:5000/wishes', {
+        fetch('https://sleepy-dawn-01844.herokuapp.com/wishes', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'

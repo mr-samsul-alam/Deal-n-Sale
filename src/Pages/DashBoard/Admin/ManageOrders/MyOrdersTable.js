@@ -33,7 +33,7 @@ const MyOrdersTable = ({ row }) => {
 
         console.info(`You clicked ${options[selectedIndex]}`);
 
-        const url = `http://localhost:5000/status/${row?._id}`;
+        const url = `https://sleepy-dawn-01844.herokuapp.com/status/${row?._id}`;
         fetch(url, {
             method: 'PUT',
             headers: {

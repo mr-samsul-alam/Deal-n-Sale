@@ -24,7 +24,7 @@ const MyCart = () => {
     }, [carts])
 
 
- 
+
     const gdTotal = cart?.reduce((acc, item) => acc + item.quantity * item.price, 0).toFixed(2)
 
     // making object for sending db
@@ -37,7 +37,7 @@ const MyCart = () => {
         activeStatus: 0
     }
     const handlePayments = () => {
-        fetch('http://localhost:5000/payments', {
+        fetch('https://sleepy-dawn-01844.herokuapp.com/payments', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'
@@ -51,7 +51,7 @@ const MyCart = () => {
                 }
             });
         console.log('submitted')
-        const url = `http://localhost:5000/allCarts/${user?.email}`
+        const url = `https://sleepy-dawn-01844.herokuapp.com/allCarts/${user?.email}`
         console.log(url);
         fetch(url, {
             method: 'DELETE'

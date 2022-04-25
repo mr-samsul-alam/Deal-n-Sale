@@ -9,7 +9,7 @@ const UseWish = () => {
     useEffect(() => {
         setBuffer(40)
         setProgress(50)
-        fetch(`http://localhost:5000/wishes/${user?.email}`)
+        fetch(`https://sleepy-dawn-01844.herokuapp.com/wishes/${user?.email}`)
             .then(res => res.json())
             .then(data => setWishes(data))
         setBuffer(100)

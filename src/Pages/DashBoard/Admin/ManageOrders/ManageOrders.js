@@ -19,7 +19,7 @@ export default function ManageOrders() {
   React.useEffect(() => {
     setCartBuffer(40)
     setCartsProgress(50)
-    fetch(`http://localhost:5000/orders`)
+    fetch(`https://sleepy-dawn-01844.herokuapp.com/orders`)
       .then(res => res.json())
       .then(data => setOrders(data))
     setCartBuffer(100)
@@ -27,7 +27,7 @@ export default function ManageOrders() {
 
 
   }, [user?.email])
-console.log(orders)
+  console.log(orders)
   return (
     <>
       <LinearProgress variant="buffer" value={cartsProgress} valueBuffer={cartBuffer} />
@@ -45,14 +45,14 @@ console.log(orders)
                   <TableCell align="center" >Email</TableCell>
                   <TableCell align="center">Product's Name</TableCell>
                   <TableCell align="center">Count</TableCell>
-                  <TableCell align="center">Total</TableCell> 
+                  <TableCell align="center">Total</TableCell>
                   <TableCell align="center">Action</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
                 {orders.map((row) => <MyOrdersTable key={row?._id} row={row} setOrders={setOrders} orders={orders}></MyOrdersTable>)}
               </TableBody>
-            </Table> 
+            </Table>
           </TableContainer>
         </div>)
       }

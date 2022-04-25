@@ -14,7 +14,7 @@ const style = {
     p: 4,
 };
 
-const steps = [ 
+const steps = [
     'payment Done',
     'Order On packaging',
     'Order On Ship',
@@ -24,7 +24,7 @@ const MyOrder = () => {
     const { user } = UseAuth()
     const [orders, setOrders] = React.useState([])
     React.useEffect(() => {
-        fetch(`http://localhost:5000/payments/${user?.email}`)
+        fetch(`https://sleepy-dawn-01844.herokuapp.com/payments/${user?.email}`)
             .then(res => res.json())
             .then(data => setOrders(data))
     }, [user?.email])
@@ -37,7 +37,7 @@ const MyOrder = () => {
                 <h1 style={{ textAlign: 'center' }} >Order's Update Page</h1>
                 {orders.length === 0 ? (<h1 style={{ textAlign: 'center' }} >Sir u do not have any order</h1>) : (orders.map(order => order.payment !== 'pending' && (<Box
                     style={{
-                        border: "2px solid blue", 
+                        border: "2px solid blue",
                         padding: '20px'
                     }}
                 >

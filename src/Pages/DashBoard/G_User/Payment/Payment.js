@@ -15,7 +15,7 @@ const Payment = () => {
     const { user } = UseAuth()
 
     useEffect(() => {
-        fetch(`http://localhost:5000/payments/${user?.email}`)
+        fetch(`https://sleepy-dawn-01844.herokuapp.com/payments/${user?.email}`)
             .then(res => res.json())
             .then(data => setPendingPayment(data))
     }, [user?.email])

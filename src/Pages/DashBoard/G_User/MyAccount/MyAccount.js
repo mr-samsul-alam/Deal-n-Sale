@@ -15,7 +15,7 @@ const MyAccount = () => {
         setBuffer(40)
         setProgress(50)
         if (user?.email !== undefined) {
-            fetch(`http://localhost:5000/users/${user?.email}`)
+            fetch(`https://sleepy-dawn-01844.herokuapp.com/users/${user?.email}`)
                 .then(res => res.json())
                 .then(data => setUserData(data))
         }

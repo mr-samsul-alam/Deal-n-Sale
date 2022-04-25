@@ -13,7 +13,7 @@ const CheckoutForm = ({ payments }) => {
     const price = parseInt(totalPrice)
     const [clientSecret, setClientSecret] = useState('');
     useEffect(() => {
-        fetch('http://localhost:5000/create-payment-intent', {
+        fetch('https://sleepy-dawn-01844.herokuapp.com/create-payment-intent', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'
@@ -77,7 +77,7 @@ const CheckoutForm = ({ payments }) => {
                 transaction: paymentIntent.client_secret.slice('_secret')[0]
             }
             console.log(payment)
-            const url = `http://localhost:5000/payments/${_id}`;
+            const url = `https://sleepy-dawn-01844.herokuapp.com/payments/${_id}`;
             fetch(url, {
                 method: 'PUT',
                 headers: {

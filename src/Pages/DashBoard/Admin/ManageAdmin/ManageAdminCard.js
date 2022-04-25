@@ -3,7 +3,7 @@ import { Button, CardContent, CardMedia, Container, Divider, Grid, Paper, Typogr
 const ManageAdminCard = ({ data }) => {
     const [value, setValue] = useState(3)
     const deleteAdmin = (id) => {
-        const url = `http://localhost:5000/adminDelete/${id}`
+        const url = `https://sleepy-dawn-01844.herokuapp.com/adminDelete/${id}`
         console.log(url);
         fetch(url, {
             method: 'DELETE'

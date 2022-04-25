@@ -9,7 +9,7 @@ const UseMyCartsData = () => {
     useEffect(() => {
         setCartBuffer(40)
         setCartsProgress(50)
-        fetch(`http://localhost:5000/carts/${user?.email}`)
+        fetch(`https://sleepy-dawn-01844.herokuapp.com/carts/${user?.email}`)
             .then(res => res.json())
             .then(data => setCarts(data))
         setCartBuffer(100)

@@ -11,7 +11,7 @@ const ManageAdmin = () => {
     const [addingBox, setAddingBox] = useState(false)
     const [submitInfo, setSubmitInfo] = useState({});
     const [adminData, setAdminData] = useState([]);
-    const [open, setOpen] = React.useState(false); 
+    const [open, setOpen] = React.useState(false);
     const handleOnBlur = e => {
         const field = e.target.name;
         const value = e.target.value;
@@ -26,7 +26,7 @@ const ManageAdmin = () => {
         setOpen(false);
     };
     useEffect(() => {
-        fetch('http://localhost:5000/admin')
+        fetch('https://sleepy-dawn-01844.herokuapp.com/admin')
             .then(res => res.json())
             .then(data => setAdminData(data))
     }, [])
@@ -34,7 +34,7 @@ const ManageAdmin = () => {
     const handleBookingSubmit = e => {
         // send to the server
         console.log(submitInfo)
-        fetch('http://localhost:5000/admin', {
+        fetch('https://sleepy-dawn-01844.herokuapp.com/admin', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'

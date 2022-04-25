@@ -77,7 +77,7 @@ const UseFireBase = () => {
 
 
     // useEffect(() => {
-    //     fetch(`http://localhost:5000/admin/${user?.email}`)
+    //     fetch(`https://sleepy-dawn-01844.herokuapp.com/admin/${user?.email}`)
     //         .then(res => res.json())
     //         .then(data => setAdminData(data))
     // }, [user?.email])
@@ -120,7 +120,7 @@ const UseFireBase = () => {
     }
     const saveUser = (email, displayName, photoURL, phnNumber, method) => {
         const user = { email, displayName, photoURL, phnNumber };
-        fetch('http://localhost:5000/users', {
+        fetch('https://sleepy-dawn-01844.herokuapp.com/users', {
             method: method,
             headers: {
                 'content-type': 'application/json'

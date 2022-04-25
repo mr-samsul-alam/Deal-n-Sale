@@ -3,11 +3,11 @@ import React, { useState } from 'react';
 
 const MyCartTable = ({ row, cart, setCart }) => {
     const [quantity, setQuantity] = useState(parseFloat(row?.quantity));
- 
+
     const deleteCart = (id) => {
         alert('R u Sure U wanna Delete')
         console.log(id);
-        const url = `http://localhost:5000/cart/${id}`
+        const url = `https://sleepy-dawn-01844.herokuapp.com/cart/${id}`
         console.log(url);
         fetch(url, {
             method: 'DELETE'

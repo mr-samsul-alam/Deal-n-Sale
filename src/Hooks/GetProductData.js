@@ -7,7 +7,7 @@ const GetProductData = () => {
     useEffect(() => {
         setBuffer(40)
         setProgress(50)
-        fetch('http://localhost:5000/products')
+        fetch('https://sleepy-dawn-01844.herokuapp.com/products')
             .then(res => res.json())
             .then(data => setProducts(data))
         setBuffer(100)

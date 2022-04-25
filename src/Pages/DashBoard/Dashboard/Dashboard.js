@@ -15,13 +15,13 @@ import ArrowLeftOutlinedIcon from '@mui/icons-material/ArrowLeftOutlined';
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
 import ShoppingBagOutlinedIcon from '@mui/icons-material/ShoppingBagOutlined';
 import PaymentOutlinedIcon from '@mui/icons-material/PaymentOutlined';
-import UnarchiveOutlinedIcon from '@mui/icons-material/UnarchiveOutlined';
 import AlignHorizontalRightOutlinedIcon from '@mui/icons-material/AlignHorizontalRightOutlined';
 import NotificationsActiveOutlinedIcon from '@mui/icons-material/NotificationsActiveOutlined';
 import LogoutIcon from '@mui/icons-material/Logout';
 import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
 import PersonAddAltIcon from '@mui/icons-material/PersonAddAlt';
 import AddBoxIcon from '@mui/icons-material/AddBox';
+import ManageHistoryIcon from '@mui/icons-material/ManageHistory';
 import {
     Outlet,
     NavLink,
@@ -31,7 +31,7 @@ import { Avatar, Badge, Button, ButtonGroup, Menu, MenuItem } from '@mui/materia
 import UseMyCartsData from '../../../Hooks/UseMyCartsData';
 import UseAuth from '../../../FireBase/UseAuth';
 import UseWish from '../../../Hooks/UseWish';
-
+import ReviewsIcon from '@mui/icons-material/Reviews';
 const drawerWidth = 250;
 
 function Dashboard(props) {
@@ -136,7 +136,7 @@ function Dashboard(props) {
                 <NavLink
                     style={{ textDecoration: 'none', display: "block" }}
                     to="/dashboard/giveReviews">
-                    <Button variant="text" style={{ color: '#283442' }}  > <AccountCircleOutlinedIcon style={{ margin: '15px' }} />Give Review</Button>
+                    <Button variant="text" style={{ color: '#283442' }}  > <ReviewsIcon style={{ margin: '15px' }} />Give Review</Button>
                 </NavLink>
                 <Divider></Divider>
                 {adminStatus && <Box>
@@ -148,10 +148,10 @@ function Dashboard(props) {
                     <NavLink
                         style={{ textDecoration: 'none', display: "block" }}
                         to="/dashboard/manageOrder">
-                        <Button variant="text" style={{ color: '#283442' }} > <AddBoxIcon style={{ margin: '15px' }} />Manege Order</Button>
+                        <Button variant="text" style={{ color: '#283442' }} > <ManageHistoryIcon style={{ margin: '15px' }} />Manege Order</Button>
                     </NavLink>
                 </Box>}
-                {adminStatus && <Box>
+                {adminSuperStatus && <Box>
                     <NavLink
                         style={{ textDecoration: 'none', display: "block" }}
                         to="/dashboard/admins">

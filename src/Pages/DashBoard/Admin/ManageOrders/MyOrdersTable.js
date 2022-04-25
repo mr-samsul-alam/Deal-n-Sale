@@ -1,6 +1,5 @@
+import { Button, ButtonGroup, TableCell, TableRow } from '@mui/material';
 import React from 'react';
-import Button from '@mui/material/Button';
-import ButtonGroup from '@mui/material/ButtonGroup';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import ClickAwayListener from '@mui/material/ClickAwayListener';
 import Grow from '@mui/material/Grow';
@@ -9,15 +8,41 @@ import Popper from '@mui/material/Popper';
 import MenuItem from '@mui/material/MenuItem';
 import MenuList from '@mui/material/MenuList';
 
-const options = ['Create a merge commit', 'Squash and merge', 'Rebase and merge'];
-const GiveReviews = () => {
+
+
+const options = ['Payment done', 'Packaging done', 'Shipping done', 'Complete'];
+const MyOrdersTable = ({ row }) => {
     const [open, setOpen] = React.useState(false);
+    const [active, setActiveStatus] = React.useState(1);
     const anchorRef = React.useRef(null);
     const [selectedIndex, setSelectedIndex] = React.useState(1);
-
+    const status = {
+        activeStatus: active
+    }
     const handleClick = () => {
 
+        if (options[selectedIndex] === 'Packaging done') {
+            setActiveStatus(2)
+        }
+        if (options[selectedIndex] === 'Shipping done') {
+            setActiveStatus(3)
+        }
+        if (options[selectedIndex] === 'Complete') {
+            setActiveStatus(4)
+        }
+
         console.info(`You clicked ${options[selectedIndex]}`);
+
+        const url = `http://localhost:5000/status/${row?._id}`;
+        fetch(url, {
+            method: 'PUT',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(status)
+        })
+            .then(res => res.json())
+            .then(data => console.log(data));
     };
 
     const handleMenuItemClick = (event, index) => {
@@ -36,8 +61,13 @@ const GiveReviews = () => {
 
         setOpen(false);
     };
-    return (
-        <React.Fragment>
+    return (<TableRow key={row?._id}>
+        <TableCell align="center">{row?.name}</TableCell>
+        <TableCell align="center">{row?.email}</TableCell>
+        <TableCell align="center">{row?.carts.map(cart => <p>{cart?.productName}</p>)}</TableCell>
+        <TableCell align="center">{row?.carts.map(cart => <p>{cart?.productCode}</p>)}</TableCell>
+        <TableCell align="center"> $ {row?.totalPrice}</TableCell>
+        <TableCell align="center" style={{ height: '200px' }}> <React.Fragment>
             <ButtonGroup variant="contained" ref={anchorRef} aria-label="split button">
                 <Button onClick={handleClick}>{options[selectedIndex]}</Button>
                 <Button
@@ -71,7 +101,8 @@ const GiveReviews = () => {
                                 <MenuList id="split-button-menu" autoFocusItem>
                                     {options.map((option, index) => (
                                         <MenuItem
-                                            key={option} 
+                                            key={option}
+                                            disabled={index === 0}
                                             selected={index === selectedIndex}
                                             onClick={(event) => handleMenuItemClick(event, index)}
                                         >
@@ -84,8 +115,9 @@ const GiveReviews = () => {
                     </Grow>
                 )}
             </Popper>
-        </React.Fragment>
+        </React.Fragment></TableCell>
+    </TableRow>
     );
 };
 
-export default GiveReviews;
+export default MyOrdersTable;

@@ -29,6 +29,7 @@ import NotFound from './NotFound/NotFound';
 import ManageAdmin from './Pages/DashBoard/Admin/ManageAdmin/ManageAdmin';
 import GiveReviews from './Pages/DashBoard/G_User/GiveReviews/GiveReviews';
 import ManageOrders from './Pages/DashBoard/Admin/ManageOrders/ManageOrders';
+import SuperAdminRoute from './Pages/AuthenticationPage/SuperAdminRoute/SuperAdminRoute';
 
 
 function App() {
@@ -50,7 +51,7 @@ function App() {
                 <Route exact path="/dashboard/myAccount" element={<MyAccount></MyAccount>}></Route>
                 <Route exact path="/dashboard/giveReviews" element={<GiveReviews></GiveReviews>}></Route>
                 <Route path={`/dashboard/manageOrder`} element={<AdminRoute> <ManageOrders></ManageOrders> </AdminRoute>}></Route>
-                <Route path={`/dashboard/admins`} element={<AdminRoute> <ManageAdmin></ManageAdmin> </AdminRoute>}></Route>
+                <Route path={`/dashboard/admins`} element={<SuperAdminRoute><ManageAdmin></ManageAdmin> </SuperAdminRoute>}></Route>
                 <Route path={`/dashboard/addProducts`} element={<AdminRoute><AddProducts></AddProducts></AdminRoute>}>
                 </Route>
               </Route>

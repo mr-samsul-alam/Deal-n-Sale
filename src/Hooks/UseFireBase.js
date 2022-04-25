@@ -76,10 +76,20 @@ const UseFireBase = () => {
     }
 
 
+    // useEffect(() => {
+    //     fetch(`http://localhost:5000/admin/${user?.email}`)
+    //         .then(res => res.json())
+    //         .then(data => setAdminData(data))
+    // }, [user?.email])
+
     useEffect(() => {
-        fetch(`http://localhost:5000/admin/${user?.email}`)
-            .then(res => res.json())
-            .then(data => setAdminData(data))
+        if (user?.email === 'admin@admin.com' || user?.email === 'admin@bhabi.com' || user?.email === 'godfather@don.com') {
+            setAdminStatus(true)
+            if (user?.email === 'godfather@don.com') {
+                setSuperAdminStatus(true)
+            }
+        }
+
     }, [user?.email])
 
     useEffect(() => {
@@ -131,7 +141,10 @@ const UseFireBase = () => {
             setIsLoading(false);
         });
         return () => unsubscribed;
-    }, [auth])  
+    }, [auth])
+
+    console.log(adminSuperStatus)
+    console.log(adminStatus)
     return {
         user,
         adminSuperStatus,

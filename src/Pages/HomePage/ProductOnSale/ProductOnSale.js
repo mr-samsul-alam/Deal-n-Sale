@@ -8,7 +8,7 @@ import GetProductData from '../../../Hooks/GetProductData';
 
 const ProductOnSale = () => {
 
-    const { products } = GetProductData()
+    const { products } = UseProductsData()
     const [productData, setProductData] = useState([])
 
     // console.log(products)
@@ -17,13 +17,13 @@ const ProductOnSale = () => {
     }, [products])
     const productSliced = productData.slice(0, 3)
     return (
-        <Container style={{ marginTop: '70px' }}>
+        <Container style={{ marginTop: '30px' }}>
             <Typography variant="div" style={{ textAlign: 'center', }}>
                 <Typography >
                     Today's Deal
                 </Typography>
                 <hr style={{ width: "50px" }} />
-                <Typography variant='h3' style={{ fontWeight: "bolder", marginBottom: '70px' }}>
+                <Typography variant='h3' style={{ fontWeight: "bolder", marginBottom: '50px' }}>
                     <span style={{ color: '#FE9C00' }}> PRODUCTS</span> <span style={{ color: '#283442' }} >ON SALE </span>
                 </Typography>
             </Typography>

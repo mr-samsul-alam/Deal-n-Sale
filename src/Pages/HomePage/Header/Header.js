@@ -9,7 +9,7 @@ const Header = () => {
     return (
         <div>
             <NavigationBar></NavigationBar>
-            <Container>
+            <Container style={{marginTop:'5px'}}>
                 <Swiper
                     loop={true} autoplay={{
                         delay: 2500,

@@ -16,9 +16,10 @@ import SearchIcon from '@mui/icons-material/Search';
 import Paper from '@mui/material/Paper';
 import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
 import UseAuth from '../../../FireBase/UseAuth';
+import SearchBox from './SearchBox/SearchBox';
 
 const NavigationBar = () => {
-  const { user, logout } = UseAuth() 
+  const { user, logout } = UseAuth()
   let navigate = useNavigate();
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [dashboard, setDashboard] = React.useState("");
@@ -58,6 +59,9 @@ const NavigationBar = () => {
   const gotToMyAccount = () => {
     navigate('/dashboard/myAccount')
   }
+  const gotToDashboard = () => {
+    navigate('/dashboard')
+  }
 
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
@@ -74,23 +78,40 @@ const NavigationBar = () => {
   }
 
   const handleSearch = (e) => {
-    console.log(e.target.value);
+    e.preventDefault()
+    e.target.reset();
   }
 
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static" style={{ backgroundColor: "#283442" }} >
-        <Container maxWidth="xl" >
+        <Container maxWidth="xl" style={{ display: 'flex', justifyContent: 'space-around' }} >
           <Toolbar disableGutters >
-
             <Typography
               variant="h6"
               noWrap
               component="div"
-              sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}
+              sx={{ flexGrow: 1, marginRight: '150px', display: { xs: 'none', md: 'flex' } }}
             >
               Deal&Sale
             </Typography>
+            <Box sx={{ backgroundColor: '#283442', }}>
+              <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' }, justifyContent: 'center', width: '100%' }}>
+                <Paper component="form" sx={{ width: '500px', marginRight: '50px', display: 'flex', justifyContent: 'space-between' }} onSubmit={handleSearch} >
+                  <SearchBox></SearchBox>
+                </Paper>
+                <Box sx={{ display: 'flex', flexDirection: 'row' }}>
+                  {pages.map((page) => (
+                    <MenuItem key={page} onClick={handleCloseNavMenu}>
+                      <Typography
+                        textAlign="center"
+                        style={{ fontWeight: "700", color: 'white', }}
+                        onClick={() => handleNavClicked(page)}>{page}</Typography>
+                    </MenuItem>
+                  ))}
+                </Box>
+              </Box>
+            </Box>
             <Typography
               variant="h6"
               noWrap
@@ -99,18 +120,7 @@ const NavigationBar = () => {
             >
               Deal&Sale
             </Typography>
-            <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-              <Paper component="form" sx={{ width: '50%', display: 'flex', justifyContent: 'space-between' }}>
-                <InputBase
-                  sx={{ ml: 1, flex: 1, }}
-                  placeholder="Search Your Product"
-                  inputProps={{ 'aria-label': 'search What You want' }}
-                />
-                <Button type="submit" sx={{ p: '10px', backgroundColor: '#FE9C00', color: 'white' }} aria-label="search"   >
-                  <SearchIcon />
-                </Button>
-              </Paper>
-            </Box>
+
 
 
 
@@ -146,6 +156,7 @@ const NavigationBar = () => {
                       'aria-labelledby': 'basic-button',
                     }}
                   >
+                    <MenuItem onClick={gotToDashboard}>Dashboard</MenuItem>
                     <MenuItem onClick={gotToMyAccount}>MyAccount</MenuItem>
                     <MenuItem onClick={handleLogOut}>Logout</MenuItem>
                   </Menu>
@@ -158,18 +169,11 @@ const NavigationBar = () => {
       </AppBar>
       <Box sx={{ backgroundColor: '#283442', }}>
         <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' }, justifyContent: 'center', width: '100%' }}>
-          <Paper component="form" sx={{ width: '90%', display: 'flex', justifyContent: 'space-between' }}>
-            <InputBase
-              sx={{ ml: 1, flex: 1, }}
-              placeholder="Search Your Product"
-              inputProps={{ 'aria-label': 'search What You want' }}
-            />
-            <Button type="submit" sx={{ p: '10px', backgroundColor: '#FE9C00', }} aria-label="search"   >
-              <SearchIcon />
-            </Button>
+          <Paper component="form" sx={{ width: '90%', display: 'flex', justifyContent: 'space-between' }} onSubmit={handleSearch} >
+            <SearchBox></SearchBox>
           </Paper>
         </Box>
-        <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+        <Box sx={{ display: { xs: 'flex', md: 'none' }, justifyContent: 'center' }}>
           <Box sx={{ display: 'flex', flexDirection: 'row' }}>
             {pages.map((page) => (
               <MenuItem key={page} onClick={handleCloseNavMenu}>

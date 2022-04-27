@@ -14,8 +14,7 @@ const ProductsCard = (props) => {
     const [wishSuccess, setWishSuccess] = React.useState(false);
     const navigate = useNavigate();
     const { user } = UseAuth()
-    const { _id, id_by_category, productName, mainPicture, rating, productCode, price, pd_quantity } = props.product || []
-    const [hover, setHover] = useState(false)
+    const { _id, id_by_category, productName, mainPicture, rating, productCode, price, pd_quantity } = props.product || {} 
     const [value, setValue] = useState(3)
 
     // making object for sending db
@@ -36,19 +35,20 @@ const ProductsCard = (props) => {
         navigate(`/product/${id_by_category}`)
     }
     return (
-        <Grid item xs={12} md={4} style={{ paddingTop: "30px", }}   >
+        <Grid item xs={12} md={4} style={{ paddingTop: "10px", }}   >
             {
                 id_by_category ? (
                     <Paper elevation={value} variant='elevation' onPointerOver={() => setValue(24)}
                         onPointerOut={() => setValue(3)}
                         style={{
+                            marginTop:'30px',
                             height: "500px",
                             width: "345px"
                         }}>
                         <ButtonBase onClick={() => goToDetails(_id)} >
 
                             <CardContent>
-                                <CardMedia  
+                                <CardMedia
                                     component="img"
                                     height="300px"
                                     width="345px"

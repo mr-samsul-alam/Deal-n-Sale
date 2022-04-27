@@ -1,90 +1,65 @@
-import React from 'react';
-import Button from '@mui/material/Button';
-import ButtonGroup from '@mui/material/ButtonGroup';
-import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
-import ClickAwayListener from '@mui/material/ClickAwayListener';
-import Grow from '@mui/material/Grow';
-import Paper from '@mui/material/Paper';
-import Popper from '@mui/material/Popper';
-import MenuItem from '@mui/material/MenuItem';
-import MenuList from '@mui/material/MenuList';
-
-const options = ['Create a merge commit', 'Squash and merge', 'Rebase and merge'];
+import { Button, TextField, Alert, Container, Typography } from '@mui/material';
+import Rating from '@mui/material/Rating';
+import React, { useState } from 'react';
+import UseFireBase from '../../../../Hooks/UseFireBase';
 const GiveReviews = () => {
-    const [open, setOpen] = React.useState(false);
-    const anchorRef = React.useRef(null);
-    const [selectedIndex, setSelectedIndex] = React.useState(1);
+    const [reviewText, setReviewText] = useState('');
+    const [success, setSuccess] = useState(false);
+    const [value, setValue] = useState(1);
+    const { user } = UseFireBase()
+    const handleOnBlur = e => {
+        setReviewText(e.target.value);
+    }
+    const photo = user.photoURL
+    const name = user.displayName
+    const reviews = { review: reviewText, photo: photo, name: name, rating: value }
 
-    const handleClick = () => {
-
-        console.info(`You clicked ${options[selectedIndex]}`);
-    };
-
-    const handleMenuItemClick = (event, index) => {
-        setSelectedIndex(index);
-        setOpen(false);
-    };
-
-    const handleToggle = () => {
-        setOpen((prevOpen) => !prevOpen);
-    };
-
-    const handleClose = (event) => {
-        if (anchorRef.current && anchorRef.current.contains(event.target)) {
-            return;
-        }
-
-        setOpen(false);
-    };
+    const handleSubmit = e => {
+        fetch('https://sleepy-dawn-01844.herokuapp.com/reviews', {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(reviews)
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.insertedId) {
+                    setSuccess(true);
+                }
+            });
+        e.preventDefault()
+    }
     return (
-        <React.Fragment>
-            <ButtonGroup variant="contained" ref={anchorRef} aria-label="split button">
-                <Button onClick={handleClick}>{options[selectedIndex]}</Button>
-                <Button
-                    size="small"
-                    aria-controls={open ? 'split-button-menu' : undefined}
-                    aria-expanded={open ? 'true' : undefined}
-                    aria-label="select merge strategy"
-                    aria-haspopup="menu"
-                    onClick={handleToggle}
-                >
-                    <ArrowDropDownIcon />
-                </Button>
-            </ButtonGroup>
-            <Popper
-                open={open}
-                anchorEl={anchorRef.current}
-                role={undefined}
-                transition
-                disablePortal
-            >
-                {({ TransitionProps, placement }) => (
-                    <Grow
-                        {...TransitionProps}
-                        style={{
-                            transformOrigin:
-                                placement === 'bottom' ? 'center top' : 'center bottom',
+        <Container style={{ textAlign: "center", marginTop: "50px" }}>
+            {
+                user?.photoURL ? <img width={100} style={{ borderRadius: "50%", width: "200px" }} src={user.photoURL} alt="Logo" />
+                    : <img width={100} style={{ borderRadius: "50%", width: "10%" }} src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt="Logo" />
+            }
+            {/* <img style={{ borderRadius: "50%", width: "10%" }} src={user.photoURL} alt="Logo" /> */}
+            <form onSubmit={handleSubmit}>
+
+                <TextField
+                    required
+                    sx={{ width: '100%' }}
+                    label="Your Review About Us"
+                    name="review"
+                    onBlur={handleOnBlur}
+                    variant="standard" />
+                <Typography sx={{ p: 3 }} >
+                    <Rating
+                        name="simple-controlled"
+                        value={value}
+                        onChange={(event, newValue) => {
+                            setValue(newValue);
                         }}
-                    >
-                        <Paper>
-                            <ClickAwayListener onClickAway={handleClose}>
-                                <MenuList id="split-button-menu" autoFocusItem>
-                                    {options.map((option, index) => (
-                                        <MenuItem
-                                            key={option} 
-                                            selected={index === selectedIndex}
-                                            onClick={(event) => handleMenuItemClick(event, index)}
-                                        >
-                                            {option}
-                                        </MenuItem>
-                                    ))}
-                                </MenuList>
-                            </ClickAwayListener>
-                        </Paper>
-                    </Grow>
-                )}
-            </Popper>
-        </React.Fragment>
+                    />
+                </Typography>
+                {success && <Alert severity="success">Thanks For U  R Awesome Review</Alert>}
+                <Button style={{ padding: "10px", margin: '50px', textAlign: "center" }} type="submit" variant="contained">Review</Button>
+            </form>
+
+        </Container >
     );
 };
 

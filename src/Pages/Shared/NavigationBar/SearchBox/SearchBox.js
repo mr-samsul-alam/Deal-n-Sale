@@ -9,12 +9,11 @@ const SearchBox = () => {
     const getSearchedWord = (e) => {
         if (e.target.value.length !== 0) {
             setInput(e.target.value.toLowerCase())
-        } 
+        }
     }
     const matchedProducts = products.filter(product => product?.productName?.toLowerCase().includes(input));
 
     console.log(matchedProducts);
-    // console.log(products);
 
     return (
         <>
@@ -27,13 +26,13 @@ const SearchBox = () => {
             <Button type="submit" sx={{ p: '10px', backgroundColor: '#FE9C00', }} aria-label="search"   >
                 <SearchIcon />
             </Button>
-            <Box>
-                {/* {
+            {/* <Box style={{ position: 'absolute', border: '2px solid red' }}>
+                {
                     matchedProducts.map(product => <Box>
-                        <img src={product?.mainPicture} width="50px" alt="" />
+                        <h1>{product?.productName}</h1>
                     </Box>)
-                } */}
-            </Box>
+                }
+            </Box> */}
 
         </>
     );

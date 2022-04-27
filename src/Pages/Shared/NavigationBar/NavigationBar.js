@@ -85,7 +85,7 @@ const NavigationBar = () => {
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static" style={{ backgroundColor: "#283442" }} >
-        <Container maxWidth="xl" style={{ display: 'flex', justifyContent: 'space-around' }} >
+        <Container maxWidth="xl" style={{ display: 'flex', justifyContent: 'space-around', position: "relative" }} >
           <Toolbar disableGutters >
             <Typography
               variant="h6"
@@ -96,7 +96,7 @@ const NavigationBar = () => {
               Deal&Sale
             </Typography>
             <Box sx={{ backgroundColor: '#283442', }}>
-              <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' }, justifyContent: 'center', width: '100%' }}>
+              <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' }, justifyContent: 'center', width: '100%', position: "relative" }}>
                 <Paper component="form" sx={{ width: '500px', marginRight: '50px', display: 'flex', justifyContent: 'space-between' }} onSubmit={handleSearch} >
                   <SearchBox></SearchBox>
                 </Paper>

@@ -17,7 +17,7 @@ const ProductOnSale = () => {
     }, [products])
     const productSliced = productData.slice(0, 3)
     return (
-        <Container style={{ marginTop: '30px' }}>
+        <Container style={{ marginTop: '30px' ,marginBottom: '30px'}}>
             <Typography variant="div" style={{ textAlign: 'center', }}>
                 <Typography >
                     Today's Deal

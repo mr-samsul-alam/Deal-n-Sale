@@ -8,7 +8,8 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { Alert, Container, Snackbar } from '@mui/material';
 import PrivateRoute from '../../AuthenticationPage/PrivateRoute/PrivateRoute';
-
+import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 const style = {
     position: 'absolute',
     top: '50%',
@@ -82,11 +83,13 @@ const AddToCart = (props) => {
 
 
     return (
-        <div>
+        <div style={{display:'flex',justifyContent:'center'}}>
 
-            <Button style={{ margin: '10px' }} variant="contained" size="large" onClick={handleAddToCartBtn}>Add to Cart</Button>
+            <div style={{display:'flex', justifyContent:'space-between',width:"200px"}}>
+                <Button style={{ margin: '10px' }} variant="contained" size="large" onClick={handleAddToCartBtn}> <AddShoppingCartIcon /> </Button>
 
-            <Button style={{ margin: '10px' }} variant="contained" size="large" onClick={handleWishBtn}>Add to Wish</Button>
+                <Button style={{ margin: '10px' }} variant="contained" size="large" onClick={handleWishBtn}><FavoriteBorderIcon /> </Button>
+            </div>
             {/* modal's code  */}
             <Modal
                 aria-labelledby="transition-modal-title"

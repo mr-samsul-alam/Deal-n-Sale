@@ -94,12 +94,19 @@ const SingleProductDetails = () => {
                             </Box>
 
                             <Box style={{ display: 'flex', justifyContent: 'center' }}>
-                                <Box onClick={() => handleClick(product?.picture2)} sx={{ border: '5px solid #F89800', margin: '5px' }}>
+                                <Box onClick={() => handleClick(product?.picture2)} style={{
+                                    border: product?.picture2 === livePicture ? '5px solid #F89800' : '2px solid #F89800', margin: '5px'
+                                }}  >
                                     <img src={product?.picture2} width="100px" style={{ padding: '2px' }} alt="" />
                                 </Box>
-                                <Box onClick={() => handleClick(product?.picture3)} sx={{ border: '5px solid #F89800', margin: '5px' }}>
+                                <Box onClick={() => handleClick(product?.picture3)} style={{
+                                    border: product?.picture3 === livePicture ? '5px solid #F89800' : '2px solid #F89800', margin: '5px'
+                                }} >
                                     <img src={product?.picture3} width="100px" alt="" style={{ padding: '2px' }} /></Box>
-                                <Box onClick={() => handleClick(product?.picture4)} sx={{ border: '5px solid #F89800', margin: '5px' }}>
+                                <Box onClick={() => handleClick(product?.picture4)}
+                                    style={{
+                                        border: product?.picture4 === livePicture ? '5px solid #F89800' : '2px solid #F89800', margin: '5px'
+                                    }}  >
                                     <img src={product?.picture4} width="100px" alt="" style={{ padding: '2px' }} />
                                 </Box>
                             </Box>
@@ -126,7 +133,9 @@ const SingleProductDetails = () => {
                                 <Button>{quantity}</Button>
                                 <Button onClick={() => upDate("plus", quantity)}>+</Button>
                             </ButtonGroup>
-                            <AddToCart newPrice={newPrice} CartDetails={CartDetails} setSuccess={setSuccess} success={success} setWishSuccess={setWishSuccess} wishSuccess={wishSuccess} ></AddToCart>
+                            <Box style={{ width: '200px' }}>
+                                <AddToCart newPrice={newPrice} CartDetails={CartDetails} setSuccess={setSuccess} success={success} setWishSuccess={setWishSuccess} wishSuccess={wishSuccess} ></AddToCart>
+                            </Box>
                             {
                                 wishSuccess && <Button style={{ margin: '10px' }} variant="contained" size="large" onClick={goToMyWish}>My Wish <CardGiftcardIcon /> </Button>
                             }
@@ -163,7 +172,7 @@ const SingleProductDetails = () => {
                 <Suggestions category={category} products={products} id={id}></Suggestions>
             </Container>
 
-        </div>
+        </div >
     );
 };
 

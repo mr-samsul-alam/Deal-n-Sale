@@ -9,7 +9,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
-import { useNavigate } from 'react-router'; 
+import { useNavigate } from 'react-router';
 import { Avatar, InputBase } from '@mui/material';
 import { styled, alpha } from '@mui/material/styles';
 import SearchIcon from '@mui/icons-material/Search';
@@ -66,12 +66,12 @@ const NavigationBar = () => {
   };
   const handleClose = () => {
     setAnchorEl(null);
-  }; 
+  };
   function stringAvatar(name) {
     return {
       children: `${name?.split(' ')[0][0]}${name?.split(' ')[1][0]}`,
     };
-  } 
+  }
 
   const handleSearch = (e) => {
     console.log(e.target.value);
@@ -149,7 +149,7 @@ const NavigationBar = () => {
                     <MenuItem onClick={gotToMyAccount}>MyAccount</MenuItem>
                     <MenuItem onClick={handleLogOut}>Logout</MenuItem>
                   </Menu>
-                </div> : <Button onClick={goToLogIn} style={{ color: 'black' }}  >Login</Button>
+                </div> : <Button onClick={goToLogIn} style={{ color: 'white' }}  >Login</Button>
               }
 
             </Box>
@@ -164,7 +164,7 @@ const NavigationBar = () => {
               placeholder="Search Your Product"
               inputProps={{ 'aria-label': 'search What You want' }}
             />
-            <Button type="submit" sx={{ p: '10px', backgroundColor: '#FE9C00', color: 'white' }} aria-label="search"   >
+            <Button type="submit" sx={{ p: '10px', backgroundColor: '#FE9C00', }} aria-label="search"   >
               <SearchIcon />
             </Button>
           </Paper>

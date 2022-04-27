@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react'; 
 
-const GetProductData = () => {
+const GetProductData = () => { 
     const [products, setProducts] = useState([]);
     const [progress, setProgress] = React.useState(20);
     const [buffer, setBuffer] = React.useState(30);

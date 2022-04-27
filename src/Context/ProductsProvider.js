@@ -4,7 +4,7 @@ import GetProductData from "../Hooks/GetProductData";
 export const ProductsContext = createContext(null);
 
 const ProductsProvider = ({ children }) => {
-    const allProductsData = GetProductData();
+    const allProductsData = GetProductData(); 
     return (
         <ProductsContext.Provider value={allProductsData}>
             {children}

@@ -1,4 +1,4 @@
-import { Container, Grid, LinearProgress } from '@mui/material';
+import { Container, Grid, LinearProgress, Skeleton } from '@mui/material';
 import React from 'react';
 import UseAuth from '../../../FireBase/UseAuth';
 import NavigationBar from '../../Shared/NavigationBar/NavigationBar';
@@ -14,7 +14,13 @@ const ExplorePage = () => {
             <Container>
                 <Grid container spacing={2}>
                     {
-                        products.map(product => <ProductsCard key={product?._id} product={product} ></ProductsCard>)
+                        products.length === 0 ? (<>
+                            <Skeleton variant="rectangular" width={345} height={500} style={{ margin: '20px' }} />
+                            <Skeleton variant="rectangular" width={345} height={500} style={{ margin: '20px' }} />
+                            <Skeleton variant="rectangular" width={345} height={500} style={{ margin: '20px' }} />
+                            <Skeleton variant="rectangular" width={345} height={500} style={{ margin: '20px' }} />
+                            <Skeleton variant="rectangular" width={345} height={500} style={{ margin: '20px' }} />
+                            <Skeleton variant="rectangular" width={345} height={500} style={{ margin: '20px' }} /></>) : (products.map(product => <ProductsCard key={product?._id} product={product} ></ProductsCard>))
                     }
                 </Grid>
             </Container>

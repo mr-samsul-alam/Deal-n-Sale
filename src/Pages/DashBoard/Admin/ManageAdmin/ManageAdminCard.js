@@ -22,11 +22,11 @@ const ManageAdminCard = ({ data }) => {
             <Paper elevation={value} variant='elevation' onPointerOver={() => setValue(24)}
                 onPointerOut={() => setValue(3)}
                 style={{
-                    height: "400px",
-                    width: "345px"
+                    height: "450px",
+                    width: "300px"
                 }}>
 
-                <CardContent>
+                <CardContent  >
                     <CardMedia
                         component="img"
                         height="200px"

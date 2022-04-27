@@ -1,4 +1,4 @@
-import { Backdrop, Box, Button, Container, Fade, Modal, Step, StepLabel, Stepper, Typography } from '@mui/material';
+import { Backdrop, Box, Button, Container, Fade, LinearProgress, Modal, Step, StepLabel, Stepper, Typography } from '@mui/material';
 import React from 'react';
 import UseAuth from '../../../../FireBase/UseAuth';
 
@@ -23,10 +23,16 @@ const steps = [
 const MyOrder = () => {
     const { user } = UseAuth()
     const [orders, setOrders] = React.useState([])
+    const [progress, setProgress] = React.useState(20);
+    const [buffer, setBuffer] = React.useState(30);
     React.useEffect(() => {
+        setBuffer(40)
+        setProgress(50)
         fetch(`https://sleepy-dawn-01844.herokuapp.com/payments/${user?.email}`)
             .then(res => res.json())
             .then(data => setOrders(data))
+        setBuffer(100)
+        setProgress(100)
     }, [user?.email])
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
@@ -34,7 +40,8 @@ const MyOrder = () => {
     return (
         <>
             <Container>
-                <h1 style={{ textAlign: 'center' }} >Order's Update Page</h1>
+                <LinearProgress variant="buffer" value={progress} valueBuffer={buffer} />
+                <h1 style={{ textAlign: 'center' }} >My Orders</h1>
                 {orders.length === 0 ? (<h1 style={{ textAlign: 'center' }} >Sir u do not have any order</h1>) : (orders.map(order => order.payment !== 'pending' && (<Box
                     style={{
                         border: "2px solid blue",

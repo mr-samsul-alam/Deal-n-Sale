@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
-import { Alert, CardContent, CardMedia, Container, Divider, Grid, Paper, Typography } from '@mui/material';
+import { Alert, CardContent, CardMedia, Container, Divider, Grid, Paper, Skeleton, Typography } from '@mui/material';
 import Snackbar from '@mui/material/Snackbar';
 import AddModeratorOutlinedIcon from '@mui/icons-material/AddModeratorOutlined';
 import { Box } from '@mui/system';
@@ -32,8 +32,7 @@ const ManageAdmin = () => {
     }, [])
 
     const handleBookingSubmit = e => {
-        // send to the server
-        console.log(submitInfo)
+        // send to the server 
         fetch('https://sleepy-dawn-01844.herokuapp.com/admin', {
             method: 'POST',
             headers: {
@@ -124,7 +123,13 @@ const ManageAdmin = () => {
             </Snackbar>
             <Divider />
             <Divider />
+
             <Grid container spacing={2}>
+                {
+                    adminData.length === 0 && <><Skeleton variant="rectangular" width={300} height={400} style={{margin:'30px'}} />
+                    <Skeleton variant="rectangular" width={300} height={400} style={{margin:'30px'}}  />
+                    <Skeleton variant="rectangular" width={300} height={400} style={{margin:'30px'}}  /></>
+                }
                 {
                     adminData.map(data => <ManageAdminCard key={data._id} data={data}></ManageAdminCard>)
                 }

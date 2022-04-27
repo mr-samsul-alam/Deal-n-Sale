@@ -39,8 +39,7 @@ function App() {
           <ProductsProvider>
             <Routes>
               <Route path="/about" element={<PrivateRoute><AboutPage /></PrivateRoute>}>
-              </Route>
-
+              </Route> 
               <Route path="/dashboard" element={<PrivateRoute><Dashboard /></PrivateRoute>}>
                 <Route exact path="/dashboard" element={<DashboardHome></DashboardHome>}></Route>
                 <Route exact path="/dashboard/myCarts" element={<MyCart></MyCart>}></Route>

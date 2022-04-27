@@ -4,9 +4,9 @@ import { Navigate, useLocation } from 'react-router-dom';
 import UseAuth from '../../../FireBase/UseAuth';
 
 const AdminRoute = ({ children, ...rest }) => {
-    const { user, adminStatus, isLoading } = UseAuth();
+    const { user, adminStatus, isAdmiLoading } = UseAuth();
     const location = useLocation();
-    if (isLoading) { return <CircularProgress /> }
+    if (isAdmiLoading) { return <CircularProgress /> }
     if (user.email && adminStatus) {
         return children;
     }

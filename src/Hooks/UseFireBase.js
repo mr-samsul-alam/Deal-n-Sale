@@ -8,11 +8,11 @@ import InitializeAuthentication from "../FireBase/FireBaseInit";
 InitializeAuthentication()
 
 const UseFireBase = () => {
-    const [adminData, setAdminData] = useState({})
     const [adminStatus, setAdminStatus] = useState(false)
     const [adminSuperStatus, setSuperAdminStatus] = useState(false)
     const [user, setUser] = useState({});
     const [isLoading, setIsLoading] = useState(true);
+    const [isAdmiLoading, setAdminIsLoading] = useState(true);
     const [authError, setAuthError] = useState('');
     let navigate = useNavigate();
 
@@ -83,27 +83,17 @@ const UseFireBase = () => {
     // }, [user?.email])
 
     useEffect(() => {
+        setAdminIsLoading(true)
         if (user?.email === 'admin@admin.com' || user?.email === 'admin@bhabi.com' || user?.email === 'godfather@don.com') {
             setAdminStatus(true)
-            if (user?.email === 'godfather@don.com') {
+            setAdminIsLoading(false)
+            if (user?.email === 'godfather@don.com' || 'admin@admin.com') {
                 setSuperAdminStatus(true)
+                setAdminIsLoading(false)
             }
         }
 
     }, [user?.email])
-
-    useEffect(() => {
-        if (adminData === null) {
-            setAdminStatus(false)
-        }
-        else {
-            setAdminStatus(true)
-            if (adminData?.role === 'superAdmin') {
-                setSuperAdminStatus(true)
-            }
-        }
-    }, [adminData])
-
 
 
 
@@ -143,11 +133,12 @@ const UseFireBase = () => {
         return () => unsubscribed;
     }, [auth])
 
-    console.log(adminSuperStatus)
-    console.log(adminStatus)
+    console.log(user?.email, adminSuperStatus, 'super admin')
+    console.log(user?.email, adminStatus, 'genaral admin')
     return {
         user,
         adminSuperStatus,
+        isAdmiLoading,
         signUsingGoogle,
         registerUser,
         adminStatus,
